@@ -16,7 +16,30 @@ const getUserByEmail = async (email) => {
     });
 }
 
+const createNewUser = async ({ firstName, lastName, email, hash }) => {
+  const queryString = 
+    `INSERT INTO users
+      (first_name, last_name, email, password) VALUES
+        ($1, $2, $3, $4)
+      RETURNING *;`;
+
+  const queryParams = [
+    firstName,
+    lastName,
+    email,
+    hash
+  ];
+
+  return db
+    .query(queryString, queryParams)
+    .then(res => {
+      console.log(res);
+      return res.rows[0];
+    });
+}
+
 module.exports = {
   getUsers,
-  getUserByEmail
+  getUserByEmail,
+  createNewUser
 };
