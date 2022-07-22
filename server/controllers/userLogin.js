@@ -10,8 +10,15 @@ module.exports = async (req, res) => {
   const email = req.body.email;
 
   const user = await getUserByEmail(email);
-  
-  const verified = await comparePasswords(req.body.password, user.password);
+
+  let verified = false;
+ 
+  if (user) {
+    verified = await comparePasswords(
+      req.body.password, 
+      user.password
+    );
+  }
   
   const msg = verified ? "successful login" : "invalid credentials";
 
