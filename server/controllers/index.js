@@ -5,6 +5,12 @@ const getApiHome = async (req, res) => {
   res.json( ...users );
 }
 
+const userLogin = require('./userLogin');
+
+const userRegistration = require('./userRegistration');
+
 module.exports = {
-  getApiHome
+  getApiHome,
+  userLogin,
+  userRegistration
 }
