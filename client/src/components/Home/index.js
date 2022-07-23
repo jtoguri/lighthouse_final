@@ -1,18 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Lighthouse Labs Final Project</title>
-        <meta name="description" content="A mix between Turo and Uhaul" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main> 
-        <h1> 
+    <div>
+        <h1>
           Lighthouse Labs Final Project
         </h1>
 
@@ -31,7 +20,6 @@ export default function Home() {
             <li>type 5</li>
           </ul>
         </div>
-      </main>
     </div>
-  )
-}
+  );
+};
