@@ -1,0 +1,23 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  align-items: center;
+
+  div.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+
+    label {
+      padding: .5em 1em .5em 0;
+      flex: 1;
+    }
+
+    input {
+      flex: 2;
+    }
+  }
+}
