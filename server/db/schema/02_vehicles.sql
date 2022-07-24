@@ -9,6 +9,6 @@ CREATE TABLE vehicles (
   license_plate VARCHAR(255),
   make TEXT,
   model TEXT,
-  year SMALLINT
+  year VARCHAR(4)
   --images
 );

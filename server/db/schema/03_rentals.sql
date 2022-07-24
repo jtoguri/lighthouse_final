@@ -3,7 +3,7 @@
 DROP TABLE IF EXISTS rentals CASCADE;
 CREATE TABLE rentals (
   id SERIAL PRIMARY KEY NOT NULL,
-  host_id INT NOT NULL REFERENCES users(id),
+  owner_id INT NOT NULL REFERENCES users(id),
   renter_id INT NOT NULL REFERENCES users(id),
   vehicle_id INT NOT NULL REFERENCES vehicles(id)
   --dates,
