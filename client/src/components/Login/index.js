@@ -1,13 +1,14 @@
-import { useState } from 'react';
-
+import { useState, useContext } from 'react';
 import axios from 'axios';
-
+import { UserContext } from '../UserContext';
 import './Login.scss';
 
 export default function Login() {
   
   const [email, setEmail]  = useState("");
   const [password, setPassword] = useState("");
+
+  const { user, setUser } = useContext(UserContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ export default function Login() {
     
     axios.post('/api/users/login', userData)
       .then(res => {
-        console.log(res);
+        setUser(res.data.token);
       })
   }
 
