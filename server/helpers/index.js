@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const hashPassword = (plainTextPass) => {
   const saltRounds = Number(process.env.SALT_ROUNDS);
@@ -14,7 +15,14 @@ const comparePasswords = (plainTextPass, hash) => {
     .then(res => res);
 }
 
+const generateJWT = (data) => {
+  const secretKey = process.env.JWT_SECRET;
+
+  return jwt.sign(data, secretKey, { expiresIn: '7d' });
+}
+
 module.exports = {
   hashPassword,
-  comparePasswords
+  comparePasswords,
+  generateJWT
 }

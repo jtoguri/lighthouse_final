@@ -2,7 +2,7 @@
 
 const { getUserByEmail } = require('../services');
 
-const { comparePasswords } = require('../helpers');
+const { comparePasswords, generateJWT } = require('../helpers');
 
 module.exports = async (req, res) => {
   console.log("logging in");
@@ -19,8 +19,16 @@ module.exports = async (req, res) => {
       user.password
     );
   }
+
+  let token = null;
+
+  if (verified) {
+    const userData = { ...user }; 
+    console.log(userData)
+    token = generateJWT(userData);
+  }
   
   const msg = verified ? "successful login" : "invalid credentials";
 
-  res.json({ result: verified, msg });
+  res.json({ result: verified, msg, token });
 };
