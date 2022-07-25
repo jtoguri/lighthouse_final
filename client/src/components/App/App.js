@@ -1,6 +1,7 @@
 import Home from '../Home';
 import Header from '../Header';
 import Login from '../Login';
+import Chat from '../Chat';
 
 import { useState, useMemo } from 'react';
 
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </UserContext.Provider>
     </div>
