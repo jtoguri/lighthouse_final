@@ -44,10 +44,19 @@ const verifyAccessToken = (token) => {
   }
 }
 
+const verifyRefreshToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+  } catch(err) {
+    // err
+  }
+}
+
 module.exports = {
   hashPassword,
   comparePasswords,
   generateAccessToken,
   generateRefreshToken,
-  verifyAccessToken
+  verifyAccessToken,
+  verifyRefreshToken
 }

@@ -1,12 +1,16 @@
+require('dotenv').config()
+
 const express = require('express');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
-require('dotenv').config()
+const { verifyRefreshToken } = require('./helpers');
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const apiRouter = require('./routes');
+const refreshToken = require('./routes/refresh_token');
 
 const { isAuth } = require('./middleware');
 
@@ -23,12 +27,15 @@ const io = new Server(httpServer, {
 app.use(isAuth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use('/api', apiRouter);
 
 app.get('/', (req, res) => {
   res.json({ message: "lighthose final" });
 });
+
+app.post('/refresh_token', refreshToken);
 
 io.on("connection", (socket) => {
   console.log("client connection");

@@ -1,7 +1,12 @@
 const { verifyAccessToken } = require('../helpers');
 
 const isAuth = (req, res, next) => {
-  const nonSecurePaths = ['/', '/api/users/login'];
+  const nonSecurePaths = [
+    '/',
+    '/api/users/login',
+    '/refresh_token'
+  ];
+
   if (nonSecurePaths.includes(req.path)) return next();
 
   const authorization = req.headers['authorization'];
