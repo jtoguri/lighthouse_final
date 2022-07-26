@@ -2,7 +2,7 @@
 
 const { getUserByEmail } = require('../services');
 
-const { comparePasswords, generateAcessToken, generateRefreshToken } = require('../helpers');
+const { comparePasswords, generateAccessToken, generateRefreshToken } = require('../helpers');
 
 module.exports = async (req, res) => {
   console.log("logging in");
@@ -19,28 +19,19 @@ module.exports = async (req, res) => {
     req.body.password, 
     user.password
   );
-
   if (!verified) {
     return res.json({ error: "Invalid credentials." });
   }
 
   //Successful login
 
-  res.cookie(
-    "jid",
-    generateRefreshToken({ userId: user.id })
-  );
+  res.cookie("jid", generateRefreshToken(user), {
+    httpOnly: true
+  });
 
-  const userData = { 
-    userId: user.id,
-    name: user.first_name
-  }; 
-
-  console.log(userData)
-
-  token = generateAccessToken(userData);
+  const accessToken = generateAccessToken(user);
   
   const msg = "successful login";
 
-  res.json({ result: verified, msg, token });
+  res.json({ result: verified, msg, accessToken });
 };

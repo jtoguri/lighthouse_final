@@ -15,21 +15,39 @@ const comparePasswords = (plainTextPass, hash) => {
     .then(res => res);
 }
 
-const generateAccessToken = (data) => {
-  const secretKey = process.env.JWT_SECRET;
+const generateAccessToken = (user) => {
+  const secretKey = process.env.ACCESS_TOKEN_SECRET;
 
-  return jwt.sign(data, secretKey, { expiresIn: "15m" });
+  const payload = {
+    userID: user.id,
+    name: user.firstName
+  };
+
+  return jwt.sign(payload, secretKey, { expiresIn: "15m" });
 }
 
-const generateRefreshToken = (data) => {
-  const secretKey = process.env.JWT_REFRESH_SECRET;
+const generateRefreshToken = (user) => {
+  const secretKey = process.env.REFRESH_TOKEN_SECRET;
 
-  return jwt.sign(data, secretKey, { expiresIn: "7d" });
+  const payload = {
+    userID: user.id,
+  };
+
+  return jwt.sign(payload, secretKey, { expiresIn: "7d" });
+}
+
+const verifyAccessToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  } catch(err) {
+    // err
+  }
 }
 
 module.exports = {
   hashPassword,
   comparePasswords,
   generateAccessToken,
-  generateRefreshToken
+  generateRefreshToken,
+  verifyAccessToken
 }

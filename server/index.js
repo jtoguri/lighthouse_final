@@ -2,9 +2,13 @@ const express = require('express');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
+require('dotenv').config()
+
 const bodyParser = require('body-parser');
 
 const apiRouter = require('./routes');
+
+const { isAuth } = require('./middleware');
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,6 +20,7 @@ const io = new Server(httpServer, {
   }
 });
 
+app.use(isAuth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
