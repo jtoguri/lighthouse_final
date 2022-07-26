@@ -2,7 +2,7 @@
 
 const { getUserByEmail } = require('../services');
 
-const { comparePasswords, generateJWT } = require('../helpers');
+const { comparePasswords, generateAcessToken } = require('../helpers');
 
 module.exports = async (req, res) => {
   console.log("logging in");
@@ -11,24 +11,31 @@ module.exports = async (req, res) => {
 
   const user = await getUserByEmail(email);
 
-  let verified = false;
- 
-  if (user) {
-    verified = await comparePasswords(
-      req.body.password, 
-      user.password
-    );
+  if (!user) {
+    return res.json({ error: "Invalid credentials." });
   }
 
-  let token = null;
+  const verified = await comparePasswords(
+    req.body.password, 
+    user.password
+  );
 
-  if (verified) {
-    const userData = { ...user }; 
-    console.log(userData)
-    token = generateJWT(userData);
+  if (!verified) {
+    return res.json({ error: "Invalid credentials." });
   }
+
+  //Successful login
+
+  const userData = { 
+    id: user.id,
+    name: user.first_name
+  }; 
+
+  console.log(userData)
+
+  token = generateAccessToken(userData);
   
-  const msg = verified ? "successful login" : "invalid credentials";
+  const msg = "successful login";
 
   res.json({ result: verified, msg, token });
 };

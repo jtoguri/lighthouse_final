@@ -15,7 +15,7 @@ const comparePasswords = (plainTextPass, hash) => {
     .then(res => res);
 }
 
-const generateJWT = (data) => {
+const generateAccessToken = (data) => {
   const secretKey = process.env.JWT_SECRET;
 
   return jwt.sign(data, secretKey, { expiresIn: '7d' });
@@ -24,5 +24,5 @@ const generateJWT = (data) => {
 module.exports = {
   hashPassword,
   comparePasswords,
-  generateJWT
+  generateAccessToken
 }
