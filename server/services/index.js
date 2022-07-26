@@ -16,6 +16,14 @@ const getUserByEmail = async (email) => {
     });
 }
 
+const getUserById = async (userId) => {
+  return db
+    .query('SELECT * FROM users WHERE id=$1;', [userId])
+    .then(res => {
+      return res.rows[0];
+    });
+}
+
 const createNewUser = async ({ firstName, lastName, email, hash }) => {
   const queryString = 
     `INSERT INTO users
@@ -41,5 +49,6 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
 module.exports = {
   getUsers,
   getUserByEmail,
+  getUserById,
   createNewUser
 };

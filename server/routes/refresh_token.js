@@ -1,23 +1,31 @@
-const { verifyRefreshToken } = require('../helpers');
+const { verifyRefreshToken, generateAccessToken } = require('../helpers');
+const { getUserById } = require('../services');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   const token = req.cookies.jid;
 
   if (!token) {
     return res.json({ ok: false, accessToken: '' });
   }
 
+  let payload;
+
   try {
-    const payload = verifyRefreshToken(token);
+    payload = verifyRefreshToken(token);
+    console.log(payload)
   } catch(err) {
     return res.send(err);
   }
 
   // token is valid, send back access token
   
-  //get user by id
+  const user = await getUserById(payload.userID);
 
-  // create access token
+  if (!user) {
+    return res.json({ ok: false, accessToken: '' });
+  }
 
-  res.json({ ok: true, accessToken: 'access token here' });
+  const accessToken = generateAccessToken(user);
+
+  res.json({ ok: true, accessToken });
 };
