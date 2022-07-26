@@ -18,11 +18,18 @@ const comparePasswords = (plainTextPass, hash) => {
 const generateAccessToken = (data) => {
   const secretKey = process.env.JWT_SECRET;
 
-  return jwt.sign(data, secretKey, { expiresIn: '7d' });
+  return jwt.sign(data, secretKey, { expiresIn: "15m" });
+}
+
+const generateRefreshToken = (data) => {
+  const secretKey = process.env.JWT_REFRESH_SECRET;
+
+  return jwt.sign(data, secretKey, { expiresIn: "7d" });
 }
 
 module.exports = {
   hashPassword,
   comparePasswords,
-  generateAccessToken
+  generateAccessToken,
+  generateRefreshToken
 }

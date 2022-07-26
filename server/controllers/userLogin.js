@@ -2,7 +2,7 @@
 
 const { getUserByEmail } = require('../services');
 
-const { comparePasswords, generateAcessToken } = require('../helpers');
+const { comparePasswords, generateAcessToken, generateRefreshToken } = require('../helpers');
 
 module.exports = async (req, res) => {
   console.log("logging in");
@@ -26,8 +26,13 @@ module.exports = async (req, res) => {
 
   //Successful login
 
+  res.cookie(
+    "jid",
+    generateRefreshToken({ userId: user.id })
+  );
+
   const userData = { 
-    id: user.id,
+    userId: user.id,
     name: user.first_name
   }; 
 
