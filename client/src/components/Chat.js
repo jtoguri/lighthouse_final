@@ -10,6 +10,25 @@ export default function Chat() {
 
   const [otherUser, setOtherUser] = useState("");
 
+  const [messages, setMessages] = useState([]);
+
+  const [listMessages, setListMessages] = useState([]);
+
+  useEffect(() => {
+    const newList = messages.map((message, index) => 
+      <li key={index}>
+        <div>
+          from: {message.from}
+        </div>
+        <div>
+          {message.content}
+        </div>
+      </li>
+    );
+
+    setListMessages(newList);
+  }, [messages])
+
   useEffect(() => {
     if (!username) {
       return;
@@ -25,11 +44,16 @@ export default function Chat() {
         }
       });
     });
-
-    socket.on("private message", ({ content, from }) => {
-      console.log(content)
-    });
   }, [username]);
+
+  useEffect(() => {
+    socket.on("private message", (message) => {
+      setMessages(prev => [...prev, message]);  
+    });
+    return () => {
+      socket.off("private message");
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,6 +96,10 @@ export default function Chat() {
               <span>{username} is chatting with {otherUser}</span>
               :
               <span>{username} is ready to chat</span>
+            } {listMessages.length > 0 &&
+              <div>
+                <ul>{listMessages}</ul>
+              </div>
             }
             <form onSubmit={sendMessage}>
               <input type="text" value={messageContent} onChange={e =>
