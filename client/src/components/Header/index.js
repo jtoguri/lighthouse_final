@@ -20,6 +20,11 @@ export default function Header() {
               Register
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to="chat" className="nav-link">
+              Chat
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>
