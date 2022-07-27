@@ -1,4 +1,9 @@
-const { verifyRefreshToken, generateAccessToken, sendRefreshToken } = require('../helpers');
+const { 
+  verifyRefreshToken, 
+  generateAccessToken, 
+  generateRefreshToken,
+  sendRefreshToken } = require('../helpers');
+
 const { getUserById } = require('../services');
 
 module.exports = async (req, res) => {
@@ -12,7 +17,6 @@ module.exports = async (req, res) => {
 
   try {
     payload = verifyRefreshToken(token);
-    console.log(payload)
   } catch(err) {
     return res.send(err);
   }
@@ -21,15 +25,15 @@ module.exports = async (req, res) => {
   
   const user = await getUserById(payload.userID);
 
-  if (!user) {
+  if (!user || user.token_version !== payload.tokenVersion) {
     return res.json({ ok: false, accessToken: '' });
   }
-
-  const accessToken = generateAccessToken(user);
-
+  
   // add logic to generate new refresh token same as login
 
-  sendRefreshToken(res, user);
+  sendRefreshToken(res, generateRefreshToken(user));
+
+  const accessToken = generateAccessToken(user);
 
   res.json({ ok: true, accessToken });
 };

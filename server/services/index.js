@@ -46,9 +46,26 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
     });
 }
 
+const revokeRefreshTokensForUser = (userId) => {
+  const queryString = 
+    `UPDATE users SET token_version = token_version+1
+      WHERE id = $1
+    RETURNING token_version;`;
+  
+  const queryParams = [userId];
+
+  return db
+    .query(queryString, queryParams)
+    .then(res => {
+      console.log(res);
+      return true;
+    });
+}
+
 module.exports = {
   getUsers,
   getUserByEmail,
   getUserById,
-  createNewUser
+  createNewUser,
+  revokeRefreshTokenForUser
 };

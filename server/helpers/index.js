@@ -31,13 +31,14 @@ const generateRefreshToken = (user) => {
 
   const payload = {
     userID: user.id,
+    refreshToken: user.refresh_token
   };
 
   return jwt.sign(payload, secretKey, { expiresIn: "7d" });
 }
 
-const sendRefreshToken = (res, user) => {
-  res.cookie("jid", generateRefreshToken(user), {
+const sendRefreshToken = (res, token) => {
+  res.cookie("jid", token, {
     httpOnly: true
   });
 }
