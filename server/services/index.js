@@ -16,6 +16,14 @@ const getUserByEmail = async (email) => {
     });
 }
 
+const getUserById = async (userId) => {
+  return db
+    .query('SELECT * FROM users WHERE id=$1;', [userId])
+    .then(res => {
+      return res.rows[0];
+    });
+}
+
 const createNewUser = async ({ firstName, lastName, email, hash }) => {
   const queryString = 
     `INSERT INTO users
@@ -38,8 +46,26 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
     });
 }
 
+const revokeRefreshTokensForUser = (userId) => {
+  const queryString = 
+    `UPDATE users SET token_version = token_version+1
+      WHERE id = $1
+    RETURNING token_version;`;
+  
+  const queryParams = [userId];
+
+  return db
+    .query(queryString, queryParams)
+    .then(res => {
+      console.log(res);
+      return true;
+    });
+}
+
 module.exports = {
   getUsers,
   getUserByEmail,
-  createNewUser
+  getUserById,
+  createNewUser,
+  revokeRefreshTokensForUser
 };

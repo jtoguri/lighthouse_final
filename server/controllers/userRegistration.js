@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   let user = await getUserByEmail(email);
 
   if (user) {
-    return res.json({ result: false, msg: "user already exists" }); 
+    return res.json({ result: false, msg: "Email already exists" }); 
   }
 
   const hash = await hashPassword(req.body.password);
