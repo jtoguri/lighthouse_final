@@ -4,6 +4,7 @@ const isAuth = (req, res, next) => {
   const nonSecurePaths = [
     '/',
     '/api/users/login',
+    '/api/users/register',
     '/refresh_token'
   ];
 

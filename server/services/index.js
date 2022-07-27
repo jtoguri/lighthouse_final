@@ -67,5 +67,5 @@ module.exports = {
   getUserByEmail,
   getUserById,
   createNewUser,
-  revokeRefreshTokenForUser
+  revokeRefreshTokensForUser
 };

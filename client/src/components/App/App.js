@@ -2,6 +2,7 @@ import Home from '../Home';
 import Header from '../Header';
 import Login from '../Login';
 import Chat from '../Chat';
+import Register from '../Register';
 
 import { useState, useMemo } from 'react';
 
@@ -14,8 +15,6 @@ import './App.scss';
 function App() {
 
   const storedJwt = sessionStorage.getItem('token');
-
-  //const decodedUser = storedJwt ? jwt_decode(storedJwt) : null;
   
   const [user, setUser] = useState(storedJwt || null);
 
@@ -29,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </UserContext.Provider>
     </div>
