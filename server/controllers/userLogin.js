@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
     req.body.password, 
     user.password
   );
+
   if (!verified) {
     return res.json({ error: "Invalid credentials." });
   }

@@ -10,15 +10,14 @@ export default function Login() {
 
   const { user, setUser } = useContext(UserContext);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const userData = {email, password};
     
-    axios.post('/api/users/login', userData)
-      .then(res => {
-        setUser(res.data.token);
-      })
+    const res = await axios.post('/api/users/login', userData);
+
+    console.log(res.data);
   }
 
   return (
