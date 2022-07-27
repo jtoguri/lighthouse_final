@@ -9,8 +9,11 @@ const userLogin = require('./userLogin');
 
 const userRegistration = require('./userRegistration');
 
+const refreshToken = require('./refresh_token');
+
 module.exports = {
   getApiHome,
   userLogin,
-  userRegistration
+  userRegistration,
+  refreshToken
 }

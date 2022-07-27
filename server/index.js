@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const apiRouter = require('./routes');
-const refreshToken = require('./routes/refresh_token');
+const { refreshToken } = require('./controllers');
 
 const { isAuth } = require('./middleware');
 

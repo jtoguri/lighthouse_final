@@ -36,6 +36,12 @@ const generateRefreshToken = (user) => {
   return jwt.sign(payload, secretKey, { expiresIn: "7d" });
 }
 
+const sendRefreshToken = (res, user) => {
+  res.cookie("jid", generateRefreshToken(user), {
+    httpOnly: true
+  });
+}
+
 const verifyAccessToken = (token) => {
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -53,6 +59,7 @@ module.exports = {
   comparePasswords,
   generateAccessToken,
   generateRefreshToken,
+  sendRefreshToken,
   verifyAccessToken,
   verifyRefreshToken
 }

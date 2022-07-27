@@ -1,4 +1,4 @@
-const { verifyRefreshToken, generateAccessToken } = require('../helpers');
+const { verifyRefreshToken, generateAccessToken, sendRefreshToken } = require('../helpers');
 const { getUserById } = require('../services');
 
 module.exports = async (req, res) => {
@@ -26,6 +26,10 @@ module.exports = async (req, res) => {
   }
 
   const accessToken = generateAccessToken(user);
+
+  // add logic to generate new refresh token same as login
+
+  sendRefreshToken(res, user);
 
   res.json({ ok: true, accessToken });
 };
