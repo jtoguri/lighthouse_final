@@ -14,9 +14,17 @@ const checkForApost = (word) => {
   return word.split("'").join("''");
 }
 
-let insertString = 
+let userString = 
   `INSERT INTO users
     (first_name, last_name, email, address) VALUES
+  `;
+let vehicleString = 
+  `INSERT INTO vehicles
+    (owner_id, vin, make, model) VALUES
+  `;
+let listingString = 
+  `INSERT INTO listings
+    (owner_id, vehicle_id) VALUES
   `;
 
 const seen = {};
@@ -46,13 +54,6 @@ while (count < maxCount) {
 
   const email = `${first}${last}@test.com`.toLowerCase();
 
-  /*users.push({
-    firstName: first,
-    lastName: last,
-    email,
-    address: addresses[count] 
-  });*/
-
   const address = addresses[count];
 
   const street = checkForApost(address.street);
@@ -60,21 +61,39 @@ while (count < maxCount) {
   const province = address.province
   const zip = address.zip
   
-  insertString += ` ('${first}', '${last}', '${email}',
+  userString += ` ('${first}', '${last}', '${email}',
   '${street}, ${city}, ${province}, ${zip}')`;
   
-  insertString += (count === maxCount - 1) ? ';' : ',';
+  userString += (count === maxCount - 1) ? ';' : ',';
+
+  const owner_id = count + 2;
+
+  const vin = faker.vehicle.vin();
+
+  const make = faker.vehicle.manufacturer();
+
+  const model = faker.vehicle.model();
+
+  vehicleString += ` (${owner_id}, '${vin}', '${make}', '${model}')`;
+  vehicleString += (count === maxCount - 1) ? ';' : ',';
+
+  const vehicleId = count + 1;
+
+  listingString += ` (${owner_id}, ${vehicleId})`;
+  listingString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
 }
 
 
-const writeQuery = async() => {
-  await fs.writeFile('../db/seeds/02_fake_hosts.sql', insertString);
+const writeQueries = async() => {
+  await fs.writeFile('../db/seeds/02_fake_hosts.sql', userString);
+  await fs.writeFile('../db/seeds/03_fake_vehicles.sql', vehicleString);
+  await fs.writeFile('../db/seeds/04_fake_listings.sql', listingString);
   return;
 }
 
-writeQuery();
+writeQueries();
 
 
 //console.log(users);
