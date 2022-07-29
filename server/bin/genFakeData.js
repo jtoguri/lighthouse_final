@@ -1,14 +1,39 @@
+#!/usr/bin/env node
+
+if (process.argv.length > 3) {
+  console.log("Invalid script usage");
+  return;
+}
+
 const { faker } = require( '@faker-js/faker/locale/en_CA');
-const addresses = require('./fakeAddresses.json');
+const fs = require('fs/promises');
+
+const addresses = require('../fake_data/fakeAddresses.json');
+
+const checkForApost = (word) => {
+  return word.split("'").join("''");
+}
+
+let insertString = 
+  `INSERT INTO users
+    (first_name, last_name, email, address) VALUES
+  `;
 
 const seen = {};
 
 const users = [];
 
+let maxCount = addresses.length
+
+if (process.argv[2] && 
+  Math.abs(Math.floor(Number(process.argv[2]))) < maxCount) {
+    maxCount = Math.abs(Math.floor(Number(process.argv[2])));
+}
+
 let count = 0;
-while (count < 100) {
-  const first = faker.name.firstName();
-  const last = faker.name.lastName();
+while (count < maxCount) {
+  let first = faker.name.firstName();
+  let last = faker.name.lastName();
 
   const name = `${first} ${last}`;
 
@@ -16,16 +41,40 @@ while (count < 100) {
 
   seen[name] = true;
 
+  first = checkForApost(first);
+  last = checkForApost(last); 
+
   const email = `${first}${last}@test.com`.toLowerCase();
 
-  users.push({
+  /*users.push({
     firstName: first,
     lastName: last,
     email,
-    address: faker.address.cityName()
-  });
+    address: addresses[count] 
+  });*/
+
+  const address = addresses[count];
+
+  const street = checkForApost(address.street);
+  const city = checkForApost(address.city);
+  const province = address.province
+  const zip = address.zip
+  
+  insertString += ` ('${first}', '${last}', '${email}',
+  '${street}, ${city}, ${province}, ${zip}')`;
+  
+  insertString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
 }
 
-console.log(users);
+
+const writeQuery = async() => {
+  await fs.writeFile('../db/seeds/02_fake_hosts.sql', insertString);
+  return;
+}
+
+writeQuery();
+
+
+//console.log(users);
