@@ -1,22 +1,22 @@
-import Home from '../Home';
-import Header from '../Header';
-import Login from '../Login';
-import Chat from '../Chat';
+import Home from "../Home";
+import Header from "../Header";
+import Login from "../Login";
+import Chat from "../Chat";
+import Rental from "../Rental";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import { UserContext } from '../UserContext';
+import { UserContext } from "../UserContext";
 
-import './App.scss';
+import "./App.scss";
 
 function App() {
-
-  const storedJwt = sessionStorage.getItem('token');
+  const storedJwt = sessionStorage.getItem("token");
 
   //const decodedUser = storedJwt ? jwt_decode(storedJwt) : null;
-  
+
   const [user, setUser] = useState(storedJwt || null);
 
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -29,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/rental/listing" element={<Rental />} />
         </Routes>
       </UserContext.Provider>
     </div>
