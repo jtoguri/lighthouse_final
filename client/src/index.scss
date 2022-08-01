@@ -13,3 +13,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.search {
+  background-image: url(https://images.pexels.com/photos/106401/pexels-photo-106401.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1);
+  background-size: 207rem;
+   background-position: 0 0;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  background-color: aliceblue;
+  height: 40rem;
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  // text-emphasis-color: white;
+  // padding-right: 15rem;
+}
+
+.location {
+  justify-content :end;
+  align-items:flex-end;
+  background-position-x: left;
+  background-position-y: top;
+}
+
+::placeholder{
+  color: black
+  opacity($color: #000000)
+}
