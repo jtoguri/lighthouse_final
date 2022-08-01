@@ -17,7 +17,8 @@ export default function Home() {
       <div className="search">
 
         <Box className='location' component="form" noValidate autoComplete="off">
-          <FormControl sx={{ width: '25ch' }}>
+          <FormControl 
+          sx={{ width: '25ch' }}>
             <OutlinedInput placeholder="Location" />
           </FormControl>
           
@@ -31,8 +32,9 @@ export default function Home() {
       <h1>
         Lets grow together
       </h1>
-      <h2>Section for different types of rentals</h2>
-      <IconTabs className='IconTabs'/>
+      {/* <h2>Section for different types of rentals</h2> */}
+      <IconTabs />
+      
     </>
   );
 };

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { Container } from '@mui/system';
+
 
 export default function IconTabs() {
   const [value, setValue] = React.useState(0);
@@ -10,13 +12,19 @@ export default function IconTabs() {
   };
 
   return (
-    
-    <Tabs className='Tabs'
+
+    <Tabs  sx={{
+      p: 1,
+      border: 1,
+      borderColor: (theme) => theme.palette.primary.main,
+      
+    }}
   value={value}
   onChange={handleChange}
-  variant="scrollable"
+  variant="standard"
   scrollButtons
   allowScrollButtonsMobile
+  centered
   aria-label="scrollable force tabs example"
 >
   <Tab label="Utility" />
@@ -27,5 +35,6 @@ export default function IconTabs() {
   <Tab label="Trucks" />
   <Tab label="Packages" />
 </Tabs>
+
   );
 }
