@@ -12,9 +12,10 @@ export default function Rental() {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("id:", id);
     axios.get(`/api/rental/listing/${id}`).then((res) => setVehicle(res.data));
   }, [id]);
+
+  console.log(vehicle);
 
   const testVehicle = {
     1: {
@@ -78,6 +79,7 @@ export default function Rental() {
         </div>
         <div className="middle line"></div>
         <div className="left-pictures">
+          {vehicle.img.data}
           {/* <Carousel
             data={testVehicle.images}
             time={10000}
