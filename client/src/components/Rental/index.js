@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 import { Carousel } from "react-carousel-minimal";
@@ -8,10 +9,12 @@ import "./Rental.scss";
 export default function Rental() {
   const [vehicle, setVehicle] = useState();
 
+  const { id } = useParams();
+
   useEffect(() => {
-    axios.get("/api/rental/listing").then((res) => setVehicle(res.data));
-    console.log(vehicle);
-  }, []);
+    console.log("id:", id);
+    axios.get(`/api/rental/listing/${id}`).then((res) => setVehicle(res.data));
+  }, [id]);
 
   const testVehicle = {
     1: {
@@ -58,6 +61,9 @@ export default function Rental() {
     fontWeight: "bold",
   };
 
+  if (vehicle === undefined) {
+    return <></>;
+  }
   return (
     <>
       <section className="main">
@@ -72,7 +78,7 @@ export default function Rental() {
         </div>
         <div className="middle line"></div>
         <div className="left-pictures">
-          <Carousel
+          {/* <Carousel
             data={testVehicle.images}
             time={10000}
             width="850px"
@@ -95,7 +101,7 @@ export default function Rental() {
               maxWidth: "850px",
               maxHeight: "500px",
             }}
-          />
+          /> */}
         </div>
       </section>
     </>

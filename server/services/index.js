@@ -28,15 +28,20 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
   });
 };
 
-const getVehicle = async () => {
-  return db.query("SELECT * FROM vehicles;", []).then((res) => {
-    return res.rows;
-  });
+const getListing = async (id) => {
+  return db
+    .query(
+      "SELECT * FROM vehicles JOIN listings ON vehicles.owner_id = listings.owner_id WHERE listings.id = $1;",
+      [id]
+    )
+    .then((res) => {
+      return res.rows;
+    });
 };
 
 module.exports = {
   getUsers,
   getUserByEmail,
   createNewUser,
-  getVehicle,
+  getListing,
 };

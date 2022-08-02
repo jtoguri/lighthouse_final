@@ -10,6 +10,6 @@ router.post("/users/login", controllers.userLogin);
 
 router.post("/users/register", controllers.userRegistration);
 
-router.get("/rental/listing", controllers.getListing);
+router.get("/rental/listing/:id", controllers.getListing);
 
 module.exports = router;

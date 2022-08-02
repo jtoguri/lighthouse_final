@@ -29,7 +29,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/rental/listing" element={<Rental />} />
+          {/* <Route path="/rental/listing" element={<Rental />} /> */}
+          <Route path="/rental/listing/:id" element={<Rental />} />
         </Routes>
       </UserContext.Provider>
     </div>

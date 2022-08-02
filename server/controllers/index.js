@@ -9,7 +9,7 @@ const userLogin = require("./userLogin");
 
 const userRegistration = require("./userRegistration");
 
-const getListing = require("./getListing");
+const getListing = require("./getListings");
 
 module.exports = {
   getApiHome,
