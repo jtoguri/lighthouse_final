@@ -1,6 +1,6 @@
 -- Drop and recreate the listings table
 
-DROP TABLE IF EXISTS rentals CASCADE;
+DROP TABLE IF EXISTS listings CASCADE;
 CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INT NOT NULL REFERENCES users(id),
