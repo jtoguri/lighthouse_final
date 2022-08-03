@@ -1,8 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import { TokenContext } from '../UserContext';
 
 import './Header.scss';
 
 export default function Header() {
+  const { accessToken, setAccessToken } = useContext(TokenContext);
+
   return (
     <div className="header">
       <nav>
@@ -25,6 +31,11 @@ export default function Header() {
               Chat
             </NavLink>
           </li>
+          {accessToken &&
+            <li>
+              logged in
+            </li>
+          }
         </ul>
       </nav>
     </div>
