@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
-import { UserContext } from '../UserContext';
+import { TokenContext } from '../UserContext';
 import './Login.scss';
 
 export default function Login() {
@@ -8,17 +8,18 @@ export default function Login() {
   const [email, setEmail]  = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, setUser } = useContext(UserContext);
+  const { accessToken, setAccessToken } = useContext(TokenContext);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const userData = {email, password};
     
-    axios.post('/api/users/login', userData)
-      .then(res => {
-        setUser(res.data.token);
-      })
+    const res = await axios.post('/api/users/login', userData);
+
+    console.log(res.data);
+
+    setAccessToken(res.data.accessToken);
   }
 
   return (

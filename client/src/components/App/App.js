@@ -2,13 +2,16 @@ import Home from "../Home";
 import Header from "../Header";
 import Login from "../Login";
 import Chat from "../Chat";
+import Register from '../Register';
 import Rental from "../Rental";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import { UserContext } from "../UserContext";
+import axios from 'axios';
+
+import { UserContext, TokenContext } from "../UserContext";
 
 import "./App.scss";
 
@@ -19,11 +22,24 @@ function App() {
 
   const [user, setUser] = useState(storedJwt || null);
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const [accessToken, setAccessToken] = useState('');
+
+  const value = useMemo(() => ({ accessToken, setAccessToken }),
+    [accessToken, setAccessToken]);
+
+  const getToken = async () => {
+    const res = await axios.post('/refresh_token');
+    setAccessToken(res.data.accessToken);
+  }
+
+  /*useEffect(() => {
+    getToken();
+
+  }, []);*/
 
   return (
     <div className="App">
-      <UserContext.Provider value={value}>
+      <TokenContext.Provider value={value}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,8 +47,9 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           {/* <Route path="/rental/listing" element={<Rental />} /> */}
           <Route path="/rental/listing/:id" element={<Rental />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-      </UserContext.Provider>
+      </TokenContext.Provider>
     </div>
   );
 }
