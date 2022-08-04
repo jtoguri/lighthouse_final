@@ -31,7 +31,7 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
 const getListing = async (id) => {
   return db
     .query(
-      "SELECT vehicles.*, images.img FROM vehicles JOIN listings ON vehicles.owner_id = listings.owner_id JOIN images ON vehicles.id = images.vehicle_id WHERE listings.id = $1;",
+      "SELECT vehicles.*, images.photo FROM vehicles JOIN listings ON vehicles.owner_id = listings.owner_id JOIN images ON vehicles.id = images.vehicle_id WHERE listings.id = $1;",
       [id]
     )
     .then((res) => {
