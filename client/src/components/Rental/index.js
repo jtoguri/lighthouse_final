@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../UserContext";
 
 import "./Rental.scss";
 
@@ -13,21 +12,13 @@ export default function Rental(props) {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`/api/rental/listing/${id}`).then((res) => setVehicle(res.data));
+    axios
+      .get(`/api/listings/${id}`)
+      .then((res) => setVehicle(res.data))
+      .catch((error) => console.log(error));
   }, [id]);
 
-  console.log(vehicle);
-
-  const { user, setUser } = useContext(UserContext);
-
-  const captionStyle = {
-    fontSize: "2em",
-    fontWeight: "bold",
-  };
-  const slideNumberStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-  };
+  console.log("vehicle:", vehicle);
 
   if (vehicle === undefined) {
     return <></>;
@@ -46,7 +37,7 @@ export default function Rental(props) {
             <p className="description">{vehicle.description}</p>
           </div>
           <div className="right-text">
-            <p>Price</p>
+            <p className="price">$90.22</p>
           </div>
         </div>
         <div className="middle line"></div>
