@@ -4,7 +4,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 import BasicDatePicker from '../BasicDatePicker';
 import IconTabs from '../IconTabs/Index';
-
+import Slider from "../Slider/Slider"
+ 
 export default function Home() {
   const [value, setValue] = React.useState(0);
 
@@ -14,8 +15,11 @@ export default function Home() {
 
   return (
     <>
-      <div className="search">
-
+    
+      <div className="search" sx={{ gap: 2 }}  >
+      <Box sx={{ p: 2 }}>
+      box
+    </Box>
         <Box className='location' component="form" noValidate autoComplete="off">
           <FormControl 
           sx={{ width: '25ch' }}>
@@ -24,6 +28,7 @@ export default function Home() {
           
         </Box>
         <BasicDatePicker/>
+        
         <div>
 
         </div>
@@ -31,9 +36,14 @@ export default function Home() {
       </div>
       <h1>
         Lets grow together
+      
       </h1>
       {/* <h2>Section for different types of rentals</h2> */}
-      <IconTabs />
+      With over 4000 users worldwide, find the right trailer for your needs.
+      <h1> 
+        
+      </h1>
+      <Slider/>
       
     </>
   );

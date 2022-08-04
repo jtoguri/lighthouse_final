@@ -1,7 +1,7 @@
 import Home from '../Home';
 import Header from '../Header';
 import Login from '../Login';
-
+import IconTabs from '../IconTabs/Index';
 import { useState, useMemo } from 'react';
 
 import { Routes, Route } from "react-router-dom";
@@ -24,6 +24,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value={value}>
         <Header />
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

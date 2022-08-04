@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-
+import IconTabs from '../IconTabs/Index';
 export default function MaterialUIPickers() {
   const [fromDate, setFromDate] = React.useState(
    null
@@ -19,6 +19,8 @@ export default function MaterialUIPickers() {
     setToDate(newValue);
   };
   return (
+    <>
+    
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={3}>
         <div style={{margin:0}}>
@@ -37,8 +39,13 @@ export default function MaterialUIPickers() {
           onChange={handleToDateChange}
           renderInput={(params) => <TextField {...params} />}
         />
+        
         </div>
+        
       </Stack>
+      
     </LocalizationProvider>
+    
+</>
   );
 }

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Button from '@mui/material/Button';
 import './Header.scss';
-
+import IconTabs from "../IconTabs/Index";
 export default function Header() {
   return (
     <div className="header">
