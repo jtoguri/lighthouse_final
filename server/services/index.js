@@ -1,20 +1,18 @@
-const db = require('../db');
+const db = require("../db");
 
 const getUsers = async () => {
-  return db
-    .query('SELECT * FROM users;', [])
-    .then(res => {
-      return res.rows; 
-    });
+  return db.query("SELECT * FROM users;", []).then((res) => {
+    return res.rows;
+  });
 };
 
 const getUserByEmail = async (email) => {
   return db
-    .query('SELECT * FROM users WHERE email=$1;', [email])
-    .then(res => {
+    .query("SELECT * FROM users WHERE email=$1;", [email])
+    .then((res) => {
       return res.rows[0];
     });
-}
+};
 
 const getUserById = async (userId) => {
   return db
@@ -25,26 +23,29 @@ const getUserById = async (userId) => {
 }
 
 const createNewUser = async ({ firstName, lastName, email, hash }) => {
-  const queryString = 
-    `INSERT INTO users
+  const queryString = `INSERT INTO users
       (first_name, last_name, email, password) VALUES
         ($1, $2, $3, $4)
       RETURNING *;`;
 
-  const queryParams = [
-    firstName,
-    lastName,
-    email,
-    hash
-  ];
+  const queryParams = [firstName, lastName, email, hash];
 
+  return db.query(queryString, queryParams).then((res) => {
+    console.log(res);
+    return res.rows[0];
+  });
+};
+
+const getListing = async (id) => {
   return db
-    .query(queryString, queryParams)
-    .then(res => {
-      console.log(res);
-      return res.rows[0];
+    .query(
+      "SELECT * FROM vehicles JOIN listings ON vehicles.owner_id = listings.owner_id WHERE listings.id = $1;",
+      [id]
+    )
+    .then((res) => {
+      return res.rows;
     });
-}
+};
 
 const revokeRefreshTokensForUser = (userId) => {
   const queryString = 
@@ -65,6 +66,8 @@ const revokeRefreshTokensForUser = (userId) => {
 module.exports = {
   getUsers,
   getUserByEmail,
+  createNewUser,
+  getListing,
   getUserById,
   createNewUser,
   revokeRefreshTokensForUser

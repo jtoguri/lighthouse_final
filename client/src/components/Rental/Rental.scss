@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 80px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.right-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.left-pictures {
+  min-width: 50%;
+}
+
+.test-photo {
+  max-width: 600px;
+  max-height: 400px;
+  min-width: 600px;
+  min-height: 400px;
+  width: auto;
+  height: auto;
+}
+
+.middle-line {
+  background: linear-gradient(#000, #000) no-repeat center/2px 100%;
+}
+
+.description {
+  margin: 20px;
+  text-align: left;
+}
+
+.main-title {
+  text-align: left;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 20px;
+}

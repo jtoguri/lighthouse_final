@@ -1,21 +1,27 @@
-import Home from '../Home';
-import Header from '../Header';
-import Login from '../Login';
-import Chat from '../Chat';
+import Home from "../Home";
+import Header from "../Header";
+import Login from "../Login";
+import Chat from "../Chat";
 import Register from '../Register';
+import Rental from "../Rental";
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
 import axios from 'axios';
 
-import { TokenContext } from '../UserContext';
+import { UserContext, TokenContext } from "../UserContext";
 
-import './App.scss';
+import "./App.scss";
 
 function App() {
-  
+  const storedJwt = sessionStorage.getItem("token");
+
+  //const decodedUser = storedJwt ? jwt_decode(storedJwt) : null;
+
+  const [user, setUser] = useState(storedJwt || null);
+
   const [accessToken, setAccessToken] = useState('');
 
   const value = useMemo(() => ({ accessToken, setAccessToken }),
@@ -39,6 +45,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
+          {/* <Route path="/rental/listing" element={<Rental />} /> */}
+          <Route path="/rental/listing/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </TokenContext.Provider>
