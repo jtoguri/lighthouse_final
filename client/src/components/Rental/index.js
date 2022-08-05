@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { TextField } from "@material-ui/core";
 import axios from "axios";
 
 import "./Rental.scss";
@@ -38,6 +39,13 @@ export default function Rental(props) {
           </div>
           <div className="right-text">
             <p className="price">$90.22</p>
+            <div className="date-picker">
+              <h4 className="date-title">Start Date</h4>
+              <TextField type="date" variant="outlined" placeholder="" />
+              <h4 className="date-title">End Date</h4>
+
+              <TextField type="date" variant="outlined" placeholder="" />
+            </div>
           </div>
         </div>
         <div className="middle line"></div>
