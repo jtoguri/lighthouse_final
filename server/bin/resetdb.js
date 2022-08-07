@@ -1,5 +1,5 @@
 // load .env data into process.env
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 
 // other dependencies
 const fs = require("fs");
@@ -39,7 +39,9 @@ const runSeedFiles = async () => {
 const runResetDB = async () => {
   try {
     dbParams.host &&
-      console.log(`-> Connecting to PG on ${dbParams.host} as ${dbParams.user}...`);
+      console.log(
+        `-> Connecting to PG on ${dbParams.host} as ${dbParams.user}...`
+      );
     dbParams.connectionString &&
       console.log(`-> Connecting to PG with ${dbParams.connectionString}...`);
     await db.connect();
