@@ -3,8 +3,8 @@ import FormControl, { useFormControl } from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 import BasicDatePicker from '../BasicDatePicker';
-import IconTabs from '../IconTabs/Index';
 import Slider from "../Slider/Slider"
+import Cards from '../Cards/Cards';
  
 export default function Home() {
   const [value, setValue] = React.useState(0);
@@ -44,6 +44,7 @@ export default function Home() {
         
       </h1>
       <Slider/>
+   
       
     </>
   );
