@@ -63,6 +63,12 @@ const revokeRefreshTokensForUser = (userId) => {
     });
 }
 
+const getAllListings = () => {
+  return db
+    .query("select * from listings limit 20;", [])
+    .then(res => res.rows);
+}
+
 module.exports = {
   getUsers,
   getUserByEmail,
@@ -70,5 +76,6 @@ module.exports = {
   getListing,
   getUserById,
   createNewUser,
-  revokeRefreshTokensForUser
+  revokeRefreshTokensForUser,
+  getAllListings
 };

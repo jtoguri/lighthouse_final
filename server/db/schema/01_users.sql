@@ -9,5 +9,9 @@ CREATE TABLE users (
   token_version INT DEFAULT 0 NOT NULL, 
   phone VARCHAR(255),
   password VARCHAR(255),
-  address VARCHAR(255)
+  address VARCHAR(255),
+  location VARCHAR(255)
+
 );
+
+---- geography(POINT)

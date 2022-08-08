@@ -4,6 +4,7 @@ import Login from "../Login";
 import Chat from "../Chat";
 import Register from "../Register";
 import Rental from "../Rental";
+import SearchResults from "../SearchResults";
 
 import { useState, useMemo, useEffect } from "react";
 
@@ -50,6 +51,7 @@ function App() {
           {/* <Route path="/listing" element={<Rental />} /> */}
           <Route path="/listings/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </TokenContext.Provider>
     </div>
