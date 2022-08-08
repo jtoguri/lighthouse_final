@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet'
 
 import './SearchResults.scss';
 
@@ -41,6 +41,14 @@ export default function SearchResults() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {results.map((listing) => {
+          const coords = listing.location.split(' ');
+          const position = [Number(coords[0]), Number(coords[1])]
+          return (
+            <Marker position={position}></Marker>
+          )
+        })}
       </MapContainer>
     </div>
     </>

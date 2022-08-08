@@ -61,7 +61,7 @@ while (count < maxCount) {
   const province = address.province
   const zip = address.zip
 
-  const location = faker.address.nearbyGPSCoordinate([43, -79], 1000,
+  const location = faker.address.nearbyGPSCoordinate([43.65, -79.4], 10,
   true);
 
   userString += ` ('${first}', '${last}', '${email}',
@@ -82,8 +82,7 @@ while (count < maxCount) {
 
   const vehicleId = count + 1;
 
-  listingString += ` (${owner_id}, ${vehicleId}, '${location[0]}
-  ${location[1]}')`;
+  listingString += ` (${owner_id}, ${vehicleId}, '${location[0]} ${location[1]}')`;
   listingString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
