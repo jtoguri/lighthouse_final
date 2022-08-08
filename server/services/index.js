@@ -65,7 +65,7 @@ const revokeRefreshTokensForUser = (userId) => {
 
 const getAllListings = () => {
   return db
-    .query("select * from listings;", [])
+    .query("select * from listings limit 20;", [])
     .then(res => res.rows);
 }
 
