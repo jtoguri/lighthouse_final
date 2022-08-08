@@ -24,7 +24,7 @@ let vehicleString =
   `;
 let listingString = 
   `INSERT INTO listings
-    (owner_id, vehicle_id) VALUES
+    (owner_id, vehicle_id, location) VALUES
   `;
 
 const seen = {};
@@ -82,7 +82,8 @@ while (count < maxCount) {
 
   const vehicleId = count + 1;
 
-  listingString += ` (${owner_id}, ${vehicleId})`;
+  listingString += ` (${owner_id}, ${vehicleId}, '${location[0]}
+  ${location[1]}')`;
   listingString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
