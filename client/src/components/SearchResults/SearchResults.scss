@@ -1,0 +1,16 @@
+.searchResults {
+  display: flex;
+}
+.searchResultsGrid {
+  width: 65%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.leaflet-container {
+  width: 35%;
+  height: calc(100vh - 67px);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
