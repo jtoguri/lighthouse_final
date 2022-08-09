@@ -16,7 +16,7 @@ const checkForApost = (word) => {
 
 let userString = 
   `INSERT INTO users
-    (first_name, last_name, email, address) VALUES
+    (first_name, last_name, email, address, location) VALUES
   `;
 let vehicleString = 
   `INSERT INTO vehicles
@@ -24,7 +24,7 @@ let vehicleString =
   `;
 let listingString = 
   `INSERT INTO listings
-    (owner_id, vehicle_id) VALUES
+    (owner_id, vehicle_id, location) VALUES
   `;
 
 const seen = {};
@@ -60,9 +60,12 @@ while (count < maxCount) {
   const city = checkForApost(address.city);
   const province = address.province
   const zip = address.zip
-  
+
+  const location = faker.address.nearbyGPSCoordinate([43.65, -79.4], 10,
+  true);
+
   userString += ` ('${first}', '${last}', '${email}',
-  '${street}, ${city}, ${province}, ${zip}')`;
+  '${street}, ${city}, ${province}, ${zip}', '${location[0]} ${location[1]}')`;
   
   userString += (count === maxCount - 1) ? ';' : ',';
 
@@ -79,7 +82,7 @@ while (count < maxCount) {
 
   const vehicleId = count + 1;
 
-  listingString += ` (${owner_id}, ${vehicleId})`;
+  listingString += ` (${owner_id}, ${vehicleId}, '${location[0]} ${location[1]}')`;
   listingString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
@@ -88,8 +91,8 @@ while (count < maxCount) {
 
 const writeQueries = async() => {
   await fs.writeFile('../db/seeds/02_fake_hosts.sql', userString);
-  await fs.writeFile('../db/seeds/03_fake_vehicles.sql', vehicleString);
-  await fs.writeFile('../db/seeds/04_fake_listings.sql', listingString);
+  await fs.writeFile('../db/seeds/04_fake_vehicles.sql', vehicleString);
+  await fs.writeFile('../db/seeds/05_fake_listings.sql', listingString);
   return;
 }
 

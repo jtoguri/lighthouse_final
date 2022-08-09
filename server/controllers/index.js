@@ -5,6 +5,11 @@ const getApiHome = async (req, res) => {
   res.json(...users);
 };
 
+const listAllListings = async (_req, res) => {
+  const listings = await queries.getAllListings();
+  res.json(listings);
+}
+
 const userLogin = require("./userLogin");
 
 const userRegistration = require("./userRegistration");
@@ -18,5 +23,6 @@ module.exports = {
   userLogin,
   userRegistration,
   getListing,
-  refreshToken
+  refreshToken,
+  listAllListings
 };
