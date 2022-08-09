@@ -14,6 +14,7 @@ import axios from "axios";
 import { UserContext, TokenContext } from "../UserContext";
 
 import "./App.scss";
+import { Box } from "@mui/system";
 
 function App() {
   const storedJwt = sessionStorage.getItem("token");
@@ -43,6 +44,7 @@ function App() {
     <div className="App">
       <TokenContext.Provider value={value}>
         <Header />
+        <Box className="Body">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -51,6 +53,7 @@ function App() {
           <Route path="/listings/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+        </Box>
       </TokenContext.Provider>
     </div>
   );
