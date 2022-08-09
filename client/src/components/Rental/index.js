@@ -6,7 +6,7 @@ import axios from "axios";
 import "./Rental.scss";
 
 import Carousel from "../Carousel/Carousel";
-import { deepOrange, lightGreen } from "@material-ui/core/colors";
+import { lightGreen } from "@material-ui/core/colors";
 
 export default function Rental(props) {
   const [vehicle, setVehicle] = useState();
