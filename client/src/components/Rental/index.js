@@ -38,6 +38,10 @@ export default function Rental(props) {
           </div>
           <div className="right-text">
             <p className="price">$90.22</p>
+            <div>
+              <h3>Owned by:</h3>
+              <span>{vehicle.first_name}</span>
+            </div>
           </div>
         </div>
         <div className="middle line"></div>

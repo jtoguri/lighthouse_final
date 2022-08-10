@@ -28,11 +28,13 @@ export default function SearchResults() {
       <div className="searchResultsGrid">
         {results.map((listing) => {
           return (
-            <div key={listing.id}>
-              <p>id: {listing.id}</p>
-              <p> owner: {listing.owner_id}</p>
-              <p> vehicle: {listing.vehicle_id}</p>
-            </div>
+            <a href={`/listings/${listing.id}`}>
+              <div key={listing.id}>
+                <p>id: {listing.id}</p>
+                <p> owner: {listing.owner_id}</p>
+                <p> vehicle: {listing.vehicle_id}</p>
+              </div>
+            </a>
           )
         })}
       </div>
