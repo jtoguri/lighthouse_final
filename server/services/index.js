@@ -69,7 +69,7 @@ const revokeRefreshTokensForUser = (userId) => {
 
 const getAllListings = () => {
   return db
-    .query("select id, owner_id, vehicle_id, ST_AsText(location) as location from listings limit 20;", [])
+    .query("select vehicles.*, listings.id, listings.owner_id, listings.vehicle_id, ST_AsText(listings.location) as location from listings join vehicles on vehicles.id = listings.vehicle_id limit 20;", [])
     .then(res => res.rows);
 }
 
