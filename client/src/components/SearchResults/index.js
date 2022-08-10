@@ -43,7 +43,7 @@ export default function SearchResults() {
         />
 
         {results.map((listing) => {
-          const coords = listing.location.split(' ');
+          const coords = listing.location.slice(6, -1).split(' ');
           const position = [Number(coords[0]), Number(coords[1])]
           return (
             <Marker position={position}></Marker>
