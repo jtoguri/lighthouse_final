@@ -5,6 +5,17 @@
   width: 65%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  gap: 1em;
+
+  div {
+    
+  }
+
+  div:hover {
+    border: 1px solid black; 
+    cursor: pointer;
+  }
 }
 
 .leaflet-container {
@@ -14,3 +25,5 @@
   bottom: 0;
   right: 0;
 }
+
+
