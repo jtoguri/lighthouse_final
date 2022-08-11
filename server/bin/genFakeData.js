@@ -82,7 +82,8 @@ while (count < maxCount) {
 
   const vehicleId = count + 1;
 
-  listingString += ` (${owner_id}, ${vehicleId}, '${location[0]} ${location[1]}')`;
+  listingString += ` (${owner_id}, ${vehicleId},
+  'POINT(${Number(location[0])} ${Number(location[1])})')` 
   listingString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
@@ -97,6 +98,3 @@ const writeQueries = async() => {
 }
 
 writeQueries();
-
-
-//console.log(users);

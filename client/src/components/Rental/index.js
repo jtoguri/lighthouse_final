@@ -6,7 +6,7 @@ import axios from "axios";
 import "./Rental.scss";
 
 import Carousel from "../Carousel/Carousel";
-import { deepOrange, lightGreen } from "@material-ui/core/colors";
+import { lightGreen } from "@material-ui/core/colors";
 
 export default function Rental(props) {
   const [vehicle, setVehicle] = useState();
@@ -73,6 +73,7 @@ export default function Rental(props) {
             </div>
           </div>
           <div className="right-text">
+
             <p className="price">{daysRented()}</p>
             <hr className="horizontal-line"></hr>
             <div className="date-picker">
@@ -96,6 +97,13 @@ export default function Rental(props) {
               <Button color="primary" variant="contained">
                 Book Now
               </Button>
+            </div>
+
+            <p className="price">$90.22</p>
+            <div>
+              <h3>Owned by:</h3>
+              <span>{vehicle.first_name}</span>
+
             </div>
           </div>
         </div>

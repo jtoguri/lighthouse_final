@@ -38,8 +38,12 @@ const createNewUser = async ({ firstName, lastName, email, hash }) => {
 
 const getListing = async (id) => {
   return db
-    .query(
-      "SELECT vehicles.*, images.photo FROM vehicles JOIN listings ON vehicles.owner_id = listings.owner_id JOIN images ON vehicles.id = images.vehicle_id WHERE listings.id = $1;",
+    /*.query(
+      "SELECT vehicles.*, images.photo FROM vehicles JOIN listings ON
+      vehicles.owner_id = listings.owner_id JOIN images ON vehicles.id =
+      images.vehicle_id WHERE listings.id = $1;"*/
+
+    .query("select vehicles.*, users.first_name from vehicles join listings on vehicles.id = listings.vehicle_id join users on users.id = listings.owner_id where listings.id = $1;",
       [id]
     )
     .then((res) => {
@@ -65,7 +69,7 @@ const revokeRefreshTokensForUser = (userId) => {
 
 const getAllListings = () => {
   return db
-    .query("select * from listings limit 20;", [])
+    .query("select vehicles.*, listings.id, listings.owner_id, listings.vehicle_id, ST_AsText(listings.location) as location from listings join vehicles on vehicles.id = listings.vehicle_id limit 20;", [])
     .then(res => res.rows);
 }
 
