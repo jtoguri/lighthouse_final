@@ -8,13 +8,15 @@
 
   gap: 1em;
 
-  div {
-    
+  a {
+    text-decoration: none;
+    color: black;
   }
 
-  div:hover {
+  a:hover {
     border: 1px solid black; 
     cursor: pointer;
+    color: red;
   }
 }
 

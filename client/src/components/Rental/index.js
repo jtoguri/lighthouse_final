@@ -97,6 +97,7 @@ export default function Rental(props) {
               <Button color="primary" variant="contained">
                 Book Now
               </Button>
+            </div>
 
             <p className="price">$90.22</p>
             <div>
