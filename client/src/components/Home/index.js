@@ -10,12 +10,21 @@ export default function Home() {
 
   let navigate = useNavigate();
   
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault(); 
-    
-    setSearchLocation(e.target.value);
 
-    navigate("/search");
+    /*const spot = await
+      axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${searchLocation}`,
+        {
+          headers: { 'User-Agent': 'Equipshare'}
+        });*/
+
+    const spot = await axios.get(`/api/search/${searchLocation}`);
+
+    console.log(spot.data)
+
+    //navigate(`/search/location=${searchLocation}`);
   }
 
   return (
@@ -25,7 +34,8 @@ export default function Home() {
         </h1>
 
         <form onSubmit={handleSearch} >
-          <input type="search" placeholder="Search" />
+          <input type="search" placeholder="Search" onChange={e =>
+            setSearchLocation(e.target.value)} />
           <input type="submit" value="Search Rentals" />
         </form>
 

@@ -6,7 +6,7 @@ import "./Carousel.scss";
 
 export default function Carousel(props) {
   const image = props;
-  console.log("props:", props.photo);
+  console.log("props:", props);
 
   const testImages = [
     {
