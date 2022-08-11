@@ -4,7 +4,7 @@ CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INT NOT NULL REFERENCES users(id),
   vehicle_id INT NOT NULL REFERENCES vehicles(id),
-  location VARCHAR(255)
+  location GEOGRAPHY(Point)
   --dates,
   --duration,
 );
