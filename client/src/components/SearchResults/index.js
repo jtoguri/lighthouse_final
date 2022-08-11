@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
 import './SearchResults.scss';
 
@@ -28,11 +28,11 @@ export default function SearchResults() {
       <div className="searchResultsGrid">
         {results.map((listing) => {
           return (
-            <div key={listing.id}>
-              <p>id: {listing.id}</p>
-              <p> owner: {listing.owner_id}</p>
-              <p> vehicle: {listing.vehicle_id}</p>
-            </div>
+            <a href={`/listings/${listing.id}`}>
+              <div key={listing.id}>
+                <p>{listing.make} {listing.model}</p>
+              </div>
+            </a>
           )
         })}
       </div>
@@ -43,10 +43,14 @@ export default function SearchResults() {
         />
 
         {results.map((listing) => {
-          const coords = listing.location.split(' ');
+          const coords = listing.location.slice(6, -1).split(' ');
           const position = [Number(coords[0]), Number(coords[1])]
           return (
-            <Marker position={position}></Marker>
+            <Marker position={position}>
+              <Popup>
+                {listing.make} {listing.model}
+              </Popup>
+            </Marker>
           )
         })}
       </MapContainer>
