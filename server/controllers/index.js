@@ -10,6 +10,21 @@ const listAllListings = async (_req, res) => {
   res.json(listings);
 }
 
+const clientSearchLocation = async (req, res) => {
+  const location = req.params.location.split(' ').join('+');
+
+  const userAgent = "Equipshare";
+
+  let coords = null;
+  
+  if (location) {
+    const nominatimString =
+      `https://nominatim.openstreetmap.org/search?q=${location}&limit=1&countrycodes=ca&format=json`;
+
+    console.log(nominatimString);
+  }
+}
+
 const userLogin = require("./userLogin");
 
 const userRegistration = require("./userRegistration");
@@ -24,5 +39,6 @@ module.exports = {
   userRegistration,
   getListing,
   refreshToken,
-  listAllListings
+  listAllListings,
+  clientSearchLocation
 };

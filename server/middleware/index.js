@@ -10,8 +10,9 @@ const isAuth = (req, res, next) => {
 
   if (nonSecurePaths.includes(req.path)) return next();
 
-  if (req.path.split("/")[2] === "listings") {
-    nonSecurePaths.push(req.path);
+  if (req.path.split("/")[2] === "listings" || req.path.split("/")[2]
+  === "search") {
+    //nonSecurePaths.push(req.path);
     return next();
   }
 
