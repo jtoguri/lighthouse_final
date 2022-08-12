@@ -11,9 +11,16 @@ export default function Home() {
   let navigate = useNavigate();
   
   const handleSearch = async (e) => {
+
     e.preventDefault(); 
 
-    const res = await axios.get(`/api/search/${searchLocation}`);
+    let res;
+
+    if (searchLocation) {
+      res = await axios.get(`/api/search/${searchLocation}`);
+    } else {
+      res = await axios.get(`/api/search/toronto,+on`);
+    }
 
     const locationData = res.data;
 
