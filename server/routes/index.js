@@ -16,4 +16,6 @@ router.get("/listings/:id", controllers.getListing);
 
 router.get("/search/:location", controllers.clientSearchLocation);
 
+router.get("/images/:id", controllers.getImages);
+
 module.exports = router;
