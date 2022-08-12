@@ -15,7 +15,7 @@ export default function Header() {
       <nav>
         <Button color='secondary'>
         <NavLink to="/" className="navbar-brand" end>
-          <h2>final project</h2>
+          <h2>EQUIPSHARE</h2>
         </NavLink>
         </Button>
         
