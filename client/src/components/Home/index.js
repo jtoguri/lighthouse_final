@@ -11,20 +11,22 @@ export default function Home() {
   let navigate = useNavigate();
   
   const handleSearch = async (e) => {
+
     e.preventDefault(); 
 
-    /*const spot = await
-      axios.get(
-        `https://nominatim.openstreetmap.org/search?q=${searchLocation}`,
-        {
-          headers: { 'User-Agent': 'Equipshare'}
-        });*/
+    let res;
 
-    const spot = await axios.get(`/api/search/${searchLocation}`);
+    if (searchLocation) {
+      res = await axios.get(`/api/search/${searchLocation}`);
+    } else {
+      res = await axios.get(`/api/search/toronto,+on`);
+    }
 
-    console.log(spot.data)
+    const locationData = res.data;
 
-    //navigate(`/search/location=${searchLocation}`);
+    console.log(locationData)
+
+    navigate(`/search?lat=${locationData.lat}&lon=${locationData.lon}`);
   }
 
   return (
