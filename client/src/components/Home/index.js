@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
+import HomeSlider from '../HomeSlider';
 
 export default function Home() {
   
@@ -31,11 +32,15 @@ export default function Home() {
 
   return (
     <div id="Home">
+        <div id="backgroundContainer">
+        </div>
         <form onSubmit={handleSearch} >
           <input type="search" placeholder="Search" onChange={e =>
             setSearchLocation(e.target.value)} />
           <input type="submit" value="Search Rentals" />
         </form>
+        <HomeSlider />
+
 
         {/*<div>
           <h2>Section for different types of rentals</h2>

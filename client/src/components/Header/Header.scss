@@ -1,4 +1,6 @@
 .header {
+  width: 100%;
+
   nav {
     display: flex;
     flex-direction: row;
@@ -18,8 +20,7 @@
       color: #9c27b0;
     }
     .navbar-brand:hover, .nav-link:hover {
-      background-color: #ba68c8; 
-      color: white;
+      background-color: rgba(186,104,200, 0.10);
     }
   }
   position: sticky;
