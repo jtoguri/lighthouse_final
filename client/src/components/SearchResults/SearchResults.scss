@@ -18,6 +18,13 @@
     cursor: pointer;
     color: red;
   }
+
+  .listing {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 
 .leaflet-container {

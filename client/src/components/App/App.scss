@@ -1,9 +1,39 @@
 .App {
-  text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+
+  #Home {
+    
+    #backgroundContainer {
+      background-image: url(https://images.pexels.com/photos/106401/pexels-photo-106401.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1);
+      background-size: 100vw auto;
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-position-y: center;
+      background-color: aliceblue;
+
+      height: 20rem;
+      width: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+
+    .react-multi-carousel-list {
+      margin-top: 20rem;
+      height: 10rem;
+      width: 15rem;
+    }
+  }
 }
 
 .App-logo {

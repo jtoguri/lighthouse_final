@@ -12,6 +12,7 @@ export default function Rental(props) {
   const [vehicle, setVehicle] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [images, setImages] = useState();
 
   const price = 90.22;
 
@@ -40,7 +41,15 @@ export default function Rental(props) {
       .catch((error) => console.log(error));
   }, [id]);
 
-  console.log("vehicle:", vehicle);
+  useEffect(() => {
+    axios
+      .get(`/api/images/${id}`)
+      .then((res) => setImages(res.data))
+      .catch((error) => console.log(error));
+  }, [id]);
+
+  // console.log("vehicle:", vehicle);
+  // console.log("images", images);
 
   if (vehicle === undefined) {
     return <></>;
@@ -60,7 +69,7 @@ export default function Rental(props) {
               <h5>HOSTED BY</h5>
               <div className="host">
                 <Avatar sx={{ bgcolor: lightGreen }}>N</Avatar>
-                <p>Newman Johnson 5/5 stars</p>
+                <span>{vehicle.first_name}</span>
               </div>
             </div>
             <div className="description">
@@ -73,7 +82,6 @@ export default function Rental(props) {
             </div>
           </div>
           <div className="right-text">
-
             <p className="price">{daysRented()}</p>
             <hr className="horizontal-line"></hr>
             <div className="date-picker">
@@ -99,17 +107,16 @@ export default function Rental(props) {
               </Button>
             </div>
 
-            <p className="price">$90.22</p>
-            <div>
+            {/* <p className="price">$90.22</p> */}
+            {/* <div>
               <h3>Owned by:</h3>
               <span>{vehicle.first_name}</span>
-
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="middle line"></div>
         <div className="photo-carousel">
-          <Carousel photo={vehicle.photo} />
+          <Carousel photo={images} />
         </div>
       </section>
     </>

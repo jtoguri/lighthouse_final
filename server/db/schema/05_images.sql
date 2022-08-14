@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS images CASCADE;
+CREATE TABLE images (
+  id SERIAL PRIMARY KEY NOT NULL,
+  listing_id INT NOT NULL REFERENCES listings(id),
+  photo VARCHAR(255)
+  );
