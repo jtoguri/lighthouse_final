@@ -1,0 +1,31 @@
+.searchResults {
+  display: flex;
+}
+.searchResultsGrid {
+  width: 65%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1em;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    border: 1px solid black; 
+    cursor: pointer;
+    color: red;
+  }
+}
+
+.leaflet-container {
+  width: 35%;
+  height: calc(100vh - 67px);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+

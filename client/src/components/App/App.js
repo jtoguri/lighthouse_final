@@ -4,10 +4,12 @@ import Login from "../Login";
 import Chat from "../Chat";
 import Register from "../Register";
 import Rental from "../Rental";
+import SearchResults from "../SearchResults";
+import Footer from "../Footer";
 
 import { useState, useMemo, useEffect } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import axios from "axios";
 
@@ -24,6 +26,8 @@ function App() {
   const [user, setUser] = useState(storedJwt || null);
 
   const [accessToken, setAccessToken] = useState("");
+
+  const location = useLocation();
 
   const value = useMemo(
     () => ({ accessToken, setAccessToken }),
@@ -52,8 +56,10 @@ function App() {
           {/* <Route path="/listing" element={<Rental />} /> */}
           <Route path="/listings/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
         </Box>
+        {location.pathname !== "/search" && <Footer />}
       </TokenContext.Provider>
     </div>
   );

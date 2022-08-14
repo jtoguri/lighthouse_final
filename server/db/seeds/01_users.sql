@@ -1,9 +1,3 @@
---INSERT INTO users (first_name, last_name, email) VALUES (
-  --'Sally',
-  --'Carpenter',
-  --'christine1995@yahoo.com'
---);
-
 INSERT INTO users (first_name, last_name, email, password) VALUES (
   'user',
   'test',

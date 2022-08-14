@@ -1,0 +1,151 @@
+.footer {
+  display: flex;
+  margin-top: auto;
+  height: 250px;
+  background-color: #efefef;
+  font-family: "Raleway", sans-serif;
+  width: 100%;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.container {
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1rem;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-white {
+  color: black;
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-4 {
+  margin: 0;
+  margin-top: 1.5rem;
+}
+
+.footer-heading {
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 0;
+  list-style: none;
+
+  a {
+    color: black;
+    line-height: 40px;
+    font-size: 16px;
+    transition: all 0.2s;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+
+    &:hover {
+      color: rgb(23, 147, 255);
+    }
+  }
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.list-inline-item {
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  display: inline-block;
+}
+
+.contact-info {
+  color: black;
+  font-size: 16px;
+}
+
+/* HOVER */
+
+.facebook:hover,
+.twitter:hover,
+.instagram:hover {
+  transform: rotate(360deg);
+}
+
+.footer-alt {
+  color: #acacac;
+}
+
+.footer-heading {
+  position: relative;
+  padding-bottom: 12px;
+
+  &:after {
+    content: "";
+    width: 25px;
+    border-bottom: 1px solid #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    display: block;
+    border-bottom: 3px solid rgb(23, 147, 255);
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
