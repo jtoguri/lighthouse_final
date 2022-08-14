@@ -10,7 +10,7 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
+    items: 4
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -29,11 +29,17 @@ return (
     showDots={true}
     responsive={responsive}
     infinite={true}
+    itemClass="carousel-item-padding-40-px"
+    centerMode={true}
+    containerClass="carousel-container"
   >
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-    <div>Item 4</div>
+    <div>Item 5</div>
+    <div>Item 6</div>
+    <div>Item 7</div>
+    <div>Item 8</div>
   </Carousel>
 )
 

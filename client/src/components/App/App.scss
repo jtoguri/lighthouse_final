@@ -28,10 +28,10 @@
     width: 100%;
     height: auto;
 
-    .react-multi-carousel-list {
+    .carousel-container { 
+      height: 15rem;
       margin-top: 20rem;
-      height: 10rem;
-      width: 15rem;
+      width: 70%; 
     }
   }
 }
