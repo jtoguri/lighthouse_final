@@ -13,7 +13,7 @@ export default function Header() {
     <div className="header">
       <nav>
         <NavLink to="/" className="navbar-brand" end>
-          <h2>final project</h2>
+          <h2>Equipshare</h2>
         </NavLink>
         <ul className="navbar-nav">
           <li className="nav-item">
