@@ -35,7 +35,8 @@ export default function SearchResults() {
         {results.map((listing) => {
           return (
             <a href={`/listings/${listing.id}`}>
-              <div key={listing.id}>
+              <div key={listing.id} className="listing">
+                {listing.photo && <img src={listing.photo}/>}
                 <p>{listing.make} {listing.model}</p>
               </div>
             </a>
