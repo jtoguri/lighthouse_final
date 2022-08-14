@@ -68,7 +68,7 @@ export default function Rental(props) {
             <div className="host-info">
               <h5>HOSTED BY</h5>
               <div className="host">
-                <Avatar sx={{ bgcolor: lightGreen }}>N</Avatar>
+                <Avatar src="/broken-image.jpg"></Avatar>
                 <span>{vehicle.first_name}</span>
               </div>
             </div>
