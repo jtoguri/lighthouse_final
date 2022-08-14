@@ -11,35 +11,33 @@ export default function Home() {
   let navigate = useNavigate();
   
   const handleSearch = async (e) => {
+
     e.preventDefault(); 
 
-    /*const spot = await
-      axios.get(
-        `https://nominatim.openstreetmap.org/search?q=${searchLocation}`,
-        {
-          headers: { 'User-Agent': 'Equipshare'}
-        });*/
+    let res;
 
-    const spot = await axios.get(`/api/search/${searchLocation}`);
+    if (searchLocation) {
+      res = await axios.get(`/api/search/${searchLocation}`);
+    } else {
+      res = await axios.get(`/api/search/toronto,+on`);
+    }
 
-    console.log(spot.data)
+    const locationData = res.data;
 
-    //navigate(`/search/location=${searchLocation}`);
+    console.log(locationData)
+
+    navigate(`/search?lat=${locationData.lat}&lon=${locationData.lon}`);
   }
 
   return (
-    <div>
-        <h1>
-          Lighthouse Labs Final Project
-        </h1>
-
+    <div id="Home">
         <form onSubmit={handleSearch} >
           <input type="search" placeholder="Search" onChange={e =>
             setSearchLocation(e.target.value)} />
           <input type="submit" value="Search Rentals" />
         </form>
 
-        <div>
+        {/*<div>
           <h2>Section for different types of rentals</h2>
           <ul>
             <li>type 1</li>
@@ -48,7 +46,7 @@ export default function Home() {
             <li>type 4</li>
             <li>type 5</li>
           </ul>
-        </div>
+        </div>*/}
     </div>
   );
 };

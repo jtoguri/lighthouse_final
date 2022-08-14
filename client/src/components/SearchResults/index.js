@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import axios from 'axios';
 
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
@@ -10,6 +12,8 @@ export default function SearchResults() {
   
   const [results, setResults] = useState([]);
   
+  const { search } = useLocation();
+
   const fetchListings = async () => {
     const res = await axios.get('/api/listings');
 
@@ -18,6 +22,8 @@ export default function SearchResults() {
   }
 
   useEffect(() => {
+
+
     fetchListings(); 
   }, [])
 
@@ -29,14 +35,16 @@ export default function SearchResults() {
         {results.map((listing) => {
           return (
             <a href={`/listings/${listing.id}`}>
-              <div key={listing.id}>
+              <div key={listing.id} className="listing">
+                {listing.photo && <img src={listing.photo}/>}
                 <p>{listing.make} {listing.model}</p>
               </div>
             </a>
           )
         })}
       </div>
-      <MapContainer center={[43.70, -79.45]} zoom={11} scrollWheelZoom={false}>
+      <MapContainer center={[Number(search.split('&')[0].split('=')[1]),
+      Number(search.split('&')[1].split('=')[1])]} zoom={11} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
