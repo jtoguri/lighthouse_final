@@ -30,18 +30,14 @@ export default function Home() {
   }
 
   return (
-    <div>
-        <h1>
-          Lighthouse Labs Final Project
-        </h1>
-
+    <div id="Home">
         <form onSubmit={handleSearch} >
           <input type="search" placeholder="Search" onChange={e =>
             setSearchLocation(e.target.value)} />
           <input type="submit" value="Search Rentals" />
         </form>
 
-        <div>
+        {/*<div>
           <h2>Section for different types of rentals</h2>
           <ul>
             <li>type 1</li>
@@ -50,7 +46,7 @@ export default function Home() {
             <li>type 4</li>
             <li>type 5</li>
           </ul>
-        </div>
+        </div>*/}
     </div>
   );
 };
