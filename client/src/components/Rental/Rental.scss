@@ -96,6 +96,7 @@
 
 .book-now-button {
   display: flex;
+  flex-direction: column;
   align-self: center;
   margin: 10px;
 }
@@ -108,4 +109,17 @@
 
 .host > span {
   margin-left: 10px;
+}
+
+hr {
+  width: 95%;
+  color: black;
+}
+
+.total-price {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  color: green;
+  font-family: sans-serif;
 }

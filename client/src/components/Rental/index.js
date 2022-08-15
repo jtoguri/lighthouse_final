@@ -1,6 +1,15 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TextField, Button, Avatar } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Avatar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
 import axios from "axios";
 
 import "./Rental.scss";
@@ -13,6 +22,7 @@ export default function Rental(props) {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [images, setImages] = useState();
+  const [open, setOpen] = useState(false);
 
   const price = 90.22;
 
@@ -51,6 +61,14 @@ export default function Rental(props) {
   // console.log("vehicle:", vehicle);
   // console.log("images", images);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   if (vehicle === undefined) {
     return <></>;
   }
@@ -82,7 +100,7 @@ export default function Rental(props) {
             </div>
           </div>
           <div className="right-text">
-            <p className="price">{daysRented()}</p>
+            <p className="price">${price} per day</p>
             <hr className="horizontal-line"></hr>
             <div className="date-picker">
               <h4 className="date-title">Start Date</h4>
@@ -91,6 +109,7 @@ export default function Rental(props) {
                 type="date"
                 variant="outlined"
                 placeholder=""
+                defaultValue={startDate}
               />
               <h4 className="date-title">End Date</h4>
               <TextField
@@ -98,13 +117,78 @@ export default function Rental(props) {
                 type="date"
                 variant="outlined"
                 placeholder=""
+                defaultValue={endDate}
               />
             </div>
             <hr className="horizontal-line"></hr>
             <div className="book-now-button">
-              <Button color="primary" variant="contained">
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleClickOpen}
+              >
                 Book Now
               </Button>
+              <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+                <DialogTitle>Complete Your Booking</DialogTitle>
+                <hr></hr>
+                <DialogContent>
+                  {startDate && endDate && (
+                    <DialogContentText>
+                      This booking will run from {startDate} to {endDate}. If
+                      this is not right, please adjust your booking dates:
+                    </DialogContentText>
+                  )}
+                  {(!startDate || !endDate) && (
+                    <DialogContentText>
+                      Please select booking dates
+                    </DialogContentText>
+                  )}
+                  <TextField
+                    helperText="Start Date"
+                    onChange={(e) => setStartDate(e.target.value)}
+                    type="date"
+                    variant="standard"
+                    defaultValue={startDate}
+                  />
+                  <TextField
+                    helperText="End Date"
+                    onChange={(e) => setEndDate(e.target.value)}
+                    type="date"
+                    variant="standard"
+                    defaultValue={endDate}
+                    style={{ margin: "0 15px" }}
+                  />
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleClose}
+                  >
+                    Complete Booking
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+            <div className="total-price">
+              {startDate && endDate && <p>Total Price = {daysRented()}</p>}
             </div>
 
             {/* <p className="price">$90.22</p> */}
@@ -114,7 +198,6 @@ export default function Rental(props) {
             </div> */}
           </div>
         </div>
-        <div className="middle line"></div>
         <div className="photo-carousel">
           <Carousel photo={images} />
         </div>
