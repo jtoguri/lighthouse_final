@@ -6,6 +6,7 @@ const isAuth = (req, res, next) => {
     "/api/users/login",
     "/api/users/register",
     "/refresh_token",
+    "/api/booking",
     // "/api/images",
   ];
 

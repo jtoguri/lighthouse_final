@@ -20,23 +20,23 @@ const clientSearchLocation = async (req, res) => {
   let coords = null;
 
   if (location) {
+    const nominatimString = `https://nominatim.openstreetmap.org/search?q=${location}&limit=1&countrycodes=ca&format=json`;
 
-    const nominatimString =
-      `https://nominatim.openstreetmap.org/search?q=${location}&limit=1&countrycodes=ca&format=json`;
-  
-    const nominatimRes = await axios.get(nominatimString, { headers: {
-      "User-Agent": "Equipshare" } })
+    const nominatimRes = await axios.get(nominatimString, {
+      headers: {
+        "User-Agent": "Equipshare",
+      },
+    });
 
     const locationData = nominatimRes.data[0];
 
-    console.log(locationData)
+    console.log(locationData);
 
     return res.json({ ...locationData });
   }
 
-  return res.json({ "lat": '43.6534817', "lon": '-79.3839347' });
-  
-}
+  return res.json({ lat: "43.6534817", lon: "-79.3839347" });
+};
 
 const userLogin = require("./userLogin");
 
@@ -48,6 +48,8 @@ const refreshToken = require("./refresh_token");
 
 const getImages = require("./getImages");
 
+const createBooking = require("./createBooking");
+
 module.exports = {
   getApiHome,
   userLogin,
@@ -57,4 +59,5 @@ module.exports = {
   listAllListings,
   clientSearchLocation,
   getImages,
+  createBooking,
 };
