@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./Rental.scss";
 
@@ -23,6 +24,8 @@ export default function Rental(props) {
   const [endDate, setEndDate] = useState();
   const [images, setImages] = useState();
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const price = 90.22;
 
@@ -58,7 +61,7 @@ export default function Rental(props) {
       .catch((error) => console.log(error));
   }, [id]);
 
-  // console.log("vehicle:", vehicle);
+  // console.log("vehicle:", vehicle.owner_id);
   // console.log("images", images);
 
   const handleClickOpen = () => {
@@ -67,6 +70,18 @@ export default function Rental(props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleBooking = async (e) => {
+    e.preventDefault();
+    const bookingData = {
+      owner_id: vehicle.owner_id,
+      renter_id: "1",
+      vehicle_id: vehicle.id,
+    };
+    console.log("loading");
+    await axios.post("/api/booking", bookingData);
+    navigate("/");
   };
 
   if (vehicle === undefined) {
@@ -202,7 +217,7 @@ export default function Rental(props) {
                   <Button
                     color="primary"
                     variant="contained"
-                    onClick={handleClose}
+                    onClick={handleBooking}
                   >
                     Complete Booking
                   </Button>
