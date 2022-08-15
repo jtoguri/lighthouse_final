@@ -82,6 +82,20 @@ const getImages = async (id) => {
     });
 };
 
+const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
+  const queryString = `INSERT INTO rentals
+      (owner_id, renter_id, vehicle_id) VALUES
+        ($1, $2, $3)
+      RETURNING *;`;
+
+  const queryParams = [owner_id, renter_id, vehicle_id];
+
+  return db.query(queryString, queryParams).then((res) => {
+    console.log(res);
+    return res.rows[0];
+  });
+};
+
 module.exports = {
   getUsers,
   getUserByEmail,
@@ -92,4 +106,5 @@ module.exports = {
   revokeRefreshTokensForUser,
   getAllListings,
   getImages,
+  createBooking,
 };
