@@ -20,4 +20,6 @@ router.get("/images/:id", controllers.getImages);
 
 router.post("/booking", controllers.createBooking);
 
+router.get("/bookings/:id", controllers.getBooking);
+
 module.exports = router;

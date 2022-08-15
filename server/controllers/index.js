@@ -50,6 +50,8 @@ const getImages = require("./getImages");
 
 const createBooking = require("./createBooking");
 
+const getBooking = require("./getBooking");
+
 module.exports = {
   getApiHome,
   userLogin,
@@ -60,4 +62,5 @@ module.exports = {
   clientSearchLocation,
   getImages,
   createBooking,
+  getBooking,
 };

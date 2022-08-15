@@ -56,7 +56,7 @@ function App() {
           <Route path="/listings/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResults />} />
-          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/bookings/:id" element={<Bookings />} />
         </Routes>
         {location.pathname !== "/search" && <Footer />}
       </TokenContext.Provider>

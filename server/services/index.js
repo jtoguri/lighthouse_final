@@ -96,6 +96,24 @@ const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
   });
 };
 
+const getBooking = async (id) => {
+  return (
+    db
+      /*.query(
+      "SELECT vehicles.*, images.photo FROM vehicles JOIN listings ON
+      vehicles.owner_id = listings.owner_id JOIN images ON vehicles.id =
+      images.vehicle_id WHERE listings.id = $1;"*/
+
+      .query(
+        "select rentals.*, users.first_name, users.last_name, vehicles.make, vehicles.model, vehicles.year from rentals JOIN users ON rentals.owner_id = users.id JOIN vehicles ON rentals.vehicle_id = vehicles.id where rentals.owner_id = $1 order by rentals.id asc;",
+        [id]
+      )
+      .then((res) => {
+        return res.rows;
+      })
+  );
+};
+
 module.exports = {
   getUsers,
   getUserByEmail,
@@ -107,4 +125,5 @@ module.exports = {
   getAllListings,
   getImages,
   createBooking,
+  getBooking,
 };
