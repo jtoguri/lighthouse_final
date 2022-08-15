@@ -9,13 +9,13 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from "@material-ui/core";
 import axios from "axios";
 
 import "./Rental.scss";
 
 import Carousel from "../Carousel/Carousel";
-import { lightGreen } from "@material-ui/core/colors";
 
 export default function Rental(props) {
   const [vehicle, setVehicle] = useState();
@@ -129,18 +129,37 @@ export default function Rental(props) {
               >
                 Book Now
               </Button>
-              <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                <DialogTitle>Complete Your Booking</DialogTitle>
-                <hr></hr>
-                <DialogContent>
+              <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+                <DialogTitle
+                  style={{
+                    color: "white",
+                    backgroundColor: "#303f9f",
+                  }}
+                >
+                  Complete Your Booking
+                </DialogTitle>
+                <DialogContent
+                  style={{ display: "flex", flexDirection: "column" }}
+                  dividers
+                >
+                  <Typography style={{ margin: "2px 0" }}>
+                    Onwer: {vehicle.first_name}
+                  </Typography>
+                  <Typography style={{ margin: "2px 0" }}>
+                    Booking Name:
+                  </Typography>
+                  <Typography style={{ margin: "2px 0 10px 0" }}>
+                    Vehicle Booked: {vehicle.year} {vehicle.make}{" "}
+                    {vehicle.model}
+                  </Typography>
                   {startDate && endDate && (
-                    <DialogContentText>
+                    <DialogContentText style={{ margin: "5px 0 10px 0" }}>
                       This booking will run from {startDate} to {endDate}. If
-                      this is not right, please adjust your booking dates:
+                      this is incorrect, please adjust your booking dates:
                     </DialogContentText>
                   )}
                   {(!startDate || !endDate) && (
-                    <DialogContentText>
+                    <DialogContentText style={{ margin: "5px 0 10px 0" }}>
                       Please select booking dates
                     </DialogContentText>
                   )}
@@ -150,6 +169,7 @@ export default function Rental(props) {
                     type="date"
                     variant="standard"
                     defaultValue={startDate}
+                    style={{ maxWidth: "40%" }}
                   />
                   <TextField
                     helperText="End Date"
@@ -157,17 +177,19 @@ export default function Rental(props) {
                     type="date"
                     variant="standard"
                     defaultValue={endDate}
-                    style={{ margin: "0 15px" }}
+                    style={{ maxWidth: "40%" }}
                   />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                  />
+                  <DialogContentText
+                    style={{
+                      display: "flex",
+                      alignSelf: "flex-end",
+                      fontWeight: "bold",
+                      fontSize: "1.2em",
+                      color: "green",
+                    }}
+                  >
+                    Price: {daysRented()}
+                  </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                   <Button
