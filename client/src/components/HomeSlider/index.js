@@ -1,7 +1,8 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function HomeSlider() {
+export default function HomeSlider({ listings }) {
+  console.log(listings)
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -33,13 +34,14 @@ return (
     centerMode={true}
     containerClass="carousel-container"
   >
-    <div>Item 1</div>
-    <div>Item 2</div>
-    <div>Item 3</div>
-    <div>Item 5</div>
-    <div>Item 6</div>
-    <div>Item 7</div>
-    <div>Item 8</div>
+    {listings.map(listing => {
+      return (
+        <div>
+          <img src={listing.photo} />
+          Hosted by: {listing.first_name}
+        </div>
+      );
+    })}
   </Carousel>
 )
 

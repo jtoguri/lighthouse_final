@@ -65,12 +65,26 @@ const revokeRefreshTokensForUser = (userId) => {
   });
 };
 
-const getAllListings = () => {
+const getNearbyListings = (coordinates) => {
+  const searchLocation = `POINT(${Number(coordinates.lat)} ${Number(coordinates.lon)})`
+
   return db
     .query(
-      `select vehicles.*, images.photo, listings.id, listings.owner_id, listings.vehicle_id, ST_AsText(listings.location) as location from listings join vehicles on vehicles.id = listings.vehicle_id left join images on listings.id = images.listing_id limit 20;`,
-      []
+      `select distinct on (listings.id, ST_Distance(ST_GeographyFromText($1), listings.location)) listings.id, vehicles.*,
+      images.photo, listings.owner_id, listings.vehicle_id,
+      ST_Distance(ST_GeographyFromText($1), listings.location),
+      ST_AsText(listings.location) as location from listings join
+      vehicles on vehicles.id = listings.vehicle_id left join images on
+      listings.id = images.listing_id order by
+      ST_Distance(ST_GeographyFromText($1), listings.location) limit 100`,
+      [searchLocation]
     )
+
+    /*return db
+      .query(
+        `select ST_Distance(ST_GeographyFromText($1), listings.location)
+        from listings limit 1;`, [searchLocation]
+      )*/
     .then((res) => res.rows);
 };
 
@@ -81,6 +95,16 @@ const getImages = async (id) => {
       return res.rows;
     });
 };
+
+const getHomePageListings = () => {
+  return db
+    .query(`select distinct on (listings.id) *, images.photo,
+    users.first_name from
+    listings left join images on listings.id = images.listing_id join
+    users on listings.owner_id = users.id order
+    by listings.id limit 10;`)
+    .then(res => res.rows);
+}
 
 const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
   const queryString = `INSERT INTO rentals
@@ -104,7 +128,8 @@ module.exports = {
   getUserById,
   createNewUser,
   revokeRefreshTokensForUser,
-  getAllListings,
+  getNearbyListings,
   getImages,
   createBooking,
+  getHomePageListings
 };
