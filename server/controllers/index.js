@@ -7,8 +7,14 @@ const getApiHome = async (req, res) => {
   res.json(...users);
 };
 
-const listAllListings = async (_req, res) => {
-  const listings = await queries.getAllListings();
+const searchListings = async (req, res) => {
+  const lat = req.params.lat;
+  const lon = req.params.lon;
+
+  const coordinates = { lat, lon };
+
+  const listings = await queries.getNearbyListings(coordinates);
+
   res.json(listings);
 };
 
@@ -54,7 +60,7 @@ module.exports = {
   userRegistration,
   getListing,
   refreshToken,
-  listAllListings,
+  searchListings,
   clientSearchLocation,
   getImages,
 };
