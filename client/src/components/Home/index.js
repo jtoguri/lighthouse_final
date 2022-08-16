@@ -58,7 +58,12 @@ export default function Home() {
             Search 
           </button>
         </form>
-        <FontAwesomeIcon icon="fas fa-search" />
+
+        <div className="home-message">
+          <p>With over 3000 users worldwide, come find the right trailer
+          for your needs</p>
+        </div>
+
         <HomeSlider listings={listings}/>
 
 
