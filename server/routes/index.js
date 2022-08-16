@@ -18,4 +18,6 @@ router.get("/search/:location", controllers.clientSearchLocation);
 
 router.get("/images/:id", controllers.getImages);
 
+router.post("/booking", controllers.createBooking);
+
 module.exports = router;
