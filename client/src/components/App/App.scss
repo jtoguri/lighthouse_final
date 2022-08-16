@@ -6,6 +6,58 @@
   width: 100%;
 
   #Home {
+
+    form { 
+      margin-top: 3rem;
+      height: 4rem;
+      width: 20rem;
+      position: relative;
+
+      fieldset {
+        position: relative;
+        margin: 0;
+        background-color: white;
+        border: none;
+        border-radius: 999rem 0 0 999rem;
+        padding: 1.5rem 0 1.5rem 1.5rem;
+
+        legend {
+          position: absolute; 
+          font-size: .75rem;
+          margin-top: -1.5rem;
+          display: none;
+        }
+
+        legend.visible {
+          display: block;
+        }
+
+        input {
+          all: unset;
+        }
+
+        input:focus::placeholder {
+          color: white;
+        }
+
+      }
+
+      button {
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 4.5rem;
+        width: 6rem;
+        background: #9c27b0;
+        margin-left: 20rem;
+        border-radius: 0 999rem 999rem 0; 
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+    }
     
     #backgroundContainer {
       background-image: url(https://images.pexels.com/photos/106401/pexels-photo-106401.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1);
@@ -28,10 +80,23 @@
     width: 100%;
     height: auto;
 
+    .home-message {
+      margin-top: 15rem;
+    }
+
     .carousel-container { 
       height: 15rem;
-      margin-top: 20rem;
+      margin-top: 5rem;
       width: 70%; 
+
+      div {
+        padding: 0 1rem;
+      }
+      
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 }

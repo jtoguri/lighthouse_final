@@ -15,7 +15,11 @@ export default function SearchResults() {
   const { search } = useLocation();
 
   const fetchListings = async () => {
-    const res = await axios.get('/api/listings');
+    const lat = search.split('&')[0].split('=')[1];
+    const lon = search.split('&')[1].split('=')[1];
+    console.log(lat, lon)
+
+    const res = await axios.get(`/api/listings/${lat}&${lon}`);
 
     const listings = res.data;
     setResults(listings);
