@@ -53,17 +53,26 @@ export default function Bookings() {
     return (
       <Card style={cardStyle}>
         <CardContent>
-          <Typography variant="h6" style={{ margin: "5px 20px" }}>
-            Booking # {bookings.id}
+          <Typography variant="h5" style={{ margin: "5px 20px" }}>
+            <strong>Booking # {bookings.id}</strong>
           </Typography>
-          <Typography variant="subtitle2" style={{ margin: "0 20px" }}>
-            Host Name: {bookings.first_name} {bookings.last_name}
+          <Typography variant="subtitle1" style={{ margin: "0 20px" }}>
+            <strong>Host Name:</strong> {bookings.first_name}{" "}
+            {bookings.last_name}
           </Typography>
-          <Typography variant="body1" style={{ margin: "20px" }}>
+          <hr style={{ width: "full" }}></hr>
+          <Typography variant="h6" style={{ margin: "20px" }}>
+            <strong>Vehicle Booked: </strong>
             {bookings.year} {bookings.make} {bookings.model}
           </Typography>
-          <Typography variant="body1" style={{ margin: "20px" }}>
-            {bookings.start_date} - {bookings.end_date}
+          <Typography variant="body2" style={{ margin: "20px" }}>
+            <strong>DATES: </strong>
+            {bookings.start_date.slice(0, -14)} -{" "}
+            {bookings.end_date.slice(0, -14)}
+          </Typography>
+          <Typography variant="body2" style={{ margin: "20px" }}>
+            <strong>PRICE: </strong>
+            {bookings.total_price}
           </Typography>
         </CardContent>
         <CardActions style={{ alignSelf: "flex-end", margin: "20px" }}>
