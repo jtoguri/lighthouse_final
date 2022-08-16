@@ -3,13 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import HomeSlider from '../HomeSlider';
 
 export default function Home() {
   
   const [searchLocation, setSearchLocation] = useState("");
+  const [listings, setListings] =useState([]);
+  const [legendDisplay, setLegendDisplay] = useState("");
 
   let navigate = useNavigate();
+
+  const getHomePageListings = async() => {
+    const listings = await axios.get("api/listings");
+    setListings(listings.data);
+  }
+
+  useEffect(() => {
+    getHomePageListings();
+  }, [])
   
   const handleSearch = async (e) => {
 
@@ -35,11 +48,18 @@ export default function Home() {
         <div id="backgroundContainer">
         </div>
         <form onSubmit={handleSearch} >
-          <input type="search" placeholder="Search" onChange={e =>
+          <fieldset>
+            <legend className={legendDisplay}>Search by location</legend>
+            <input onFocus={() => setLegendDisplay("visible")}
+            onBlur={() => setLegendDisplay("")} type="search" placeholder="Search by location" onChange={e =>
             setSearchLocation(e.target.value)} />
-          <input type="submit" value="Search Rentals" />
+          </fieldset> 
+          <button type="submit">
+            Search 
+          </button>
         </form>
-        <HomeSlider />
+        <FontAwesomeIcon icon="fas fa-search" />
+        <HomeSlider listings={listings}/>
 
 
         {/*<div>

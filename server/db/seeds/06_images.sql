@@ -29,4 +29,3 @@ INSERT INTO images (listing_id, photo) VALUES ('14', 'https://canadatrailers.com
 INSERT INTO images (listing_id, photo) VALUES ('15', 'https://canadatrailers.com/wp-content/uploads/2020/10/DECKOVER-TILT-24-25-768x512.jpg'), ('15', 'https://canadatrailers.com/wp-content/uploads/2020/10/DECKOVER-TILT-24-2-768x512.jpg');
 
 INSERT INTO images (listing_id, photo) VALUES ('16', 'https://canadatrailers.com/wp-content/uploads/2020/10/Single-axle-dump-10x5-1-768x512.jpg'), ('16', 'https://canadatrailers.com/wp-content/uploads/2020/10/Single-axle-dump-10x5-5-1024x683.jpg');
->>>>>>> main

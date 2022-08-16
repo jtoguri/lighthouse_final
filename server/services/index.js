@@ -96,6 +96,16 @@ const getImages = async (id) => {
     });
 };
 
+const getHomePageListings = () => {
+  return db
+    .query(`select distinct on (listings.id) *, images.photo,
+    users.first_name from
+    listings left join images on listings.id = images.listing_id join
+    users on listings.owner_id = users.id order
+    by listings.id limit 10;`)
+    .then(res => res.rows);
+}
+
 const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
   const queryString = `INSERT INTO rentals
       (owner_id, renter_id, vehicle_id) VALUES
@@ -121,4 +131,5 @@ module.exports = {
   getNearbyListings,
   getImages,
   createBooking,
+  getHomePageListings
 };

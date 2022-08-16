@@ -14,6 +14,8 @@ router.get("/listings/:lat&:lon", controllers.searchListings);
 
 router.get("/listings/:id", controllers.getListing);
 
+router.get("/listings", controllers.clientHomePageListings);
+
 router.get("/search/:location", controllers.clientSearchLocation);
 
 router.get("/images/:id", controllers.getImages);
