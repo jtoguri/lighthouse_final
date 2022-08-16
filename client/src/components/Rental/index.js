@@ -10,6 +10,7 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
+  TextareaAutosize,
 } from "@material-ui/core";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -25,14 +26,18 @@ export default function Rental(props) {
   const [images, setImages] = useState();
   const [open, setOpen] = useState(false);
 
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in ligula id ligula ornare scelerisque. Etiam at commodo nisl, sed interdum felis. Vestibulum non sagittis sem. Aenean ac vestibulum ex. Sed sapien arcu, elementum vel auctor sed, facilisis eu arcu. Sed fringilla nibh id egestas vestibulum. Sed varius ex lorem. Phasellus hendrerit volutpat neque, sit amet euismod ligula fermentum eget. Vestibulum a nulla sed justo interdum porta non at nisi. Etiam aliquam semper sapien vitae congue. Sed eu mi tincidunt, varius lacus ut, molestie lectus. Suspendisse ac aliquet sem. Sed risus metus, dignissim blandit ultricies sed, gravida eu velit. Aenean semper, mauris id hendrerit vehicula, lectus lectus efficitur urna, et rutrum libero leo hendrerit quam. Duis sed sapien cursus, pulvinar nisl non, iaculis massa. Cras vitae elit eros. Curabitur consectetur arcu blandit commodo feugiat.Pellentesque a diam augue.Nulla consequat orci vitae cursus dapibus.Proin nec porttitor enim.Fusce at diam dolor.Aliquam non lorem sem.Donec rutrum risus ipsum, quis rutrum sapien ultricies mollis.Phasellus eu vestibulum orci, vitae luctus ante.";
+
   const navigate = useNavigate();
 
   const price = 90.22;
 
+  const days =
+    (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+    (1000 * 60 * 60 * 24);
+
   function daysRented() {
-    let days =
-      (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-      (1000 * 60 * 60 * 24);
     if (!days) {
       return `$${price}`;
     }
@@ -42,7 +47,7 @@ export default function Rental(props) {
     if (days < 0) {
       return "Invalid Date Selection";
     }
-    return `$${Math.round(price * days)}`;
+    return `$${Math.round(price * days * 100) / 100}`;
   }
 
   const { id } = useParams();
@@ -78,6 +83,9 @@ export default function Rental(props) {
       owner_id: vehicle.owner_id,
       renter_id: "1",
       vehicle_id: vehicle.id,
+      start_date: startDate,
+      end_date: endDate,
+      total_price: daysRented(),
     };
     console.log("loading");
     await axios.post("/api/booking", bookingData);
@@ -107,7 +115,7 @@ export default function Rental(props) {
             </div>
             <div className="description">
               <h5>DESCRIPTION</h5>
-              <p>{vehicle.description}</p>
+              <p>{description}</p>
             </div>
             <div className="description">
               <h5>REVIEWS</h5>
@@ -116,6 +124,13 @@ export default function Rental(props) {
           </div>
           <div className="right-text">
             <p className="price">${price} per day</p>
+            <div className="total-price">
+              {startDate && endDate && (
+                <p>
+                  Total Price for {days} days: {daysRented()}
+                </p>
+              )}
+            </div>
             <hr className="horizontal-line"></hr>
             <div className="date-picker">
               <h4 className="date-title">Start Date</h4>
@@ -158,19 +173,20 @@ export default function Rental(props) {
                   dividers
                 >
                   <Typography style={{ margin: "2px 0" }}>
-                    Onwer: {vehicle.first_name}
+                    <strong>Owner:</strong> {vehicle.first_name}
                   </Typography>
                   <Typography style={{ margin: "2px 0" }}>
-                    Booking Name:
+                    <strong>Email:</strong> {vehicle.email}
                   </Typography>
                   <Typography style={{ margin: "2px 0 10px 0" }}>
-                    Vehicle Booked: {vehicle.year} {vehicle.make}{" "}
-                    {vehicle.model}
+                    <strong>Vehicle Booked:</strong> {vehicle.year}{" "}
+                    {vehicle.make} {vehicle.model}
                   </Typography>
                   {startDate && endDate && (
                     <DialogContentText style={{ margin: "5px 0 10px 0" }}>
-                      This booking will run from {startDate} to {endDate}. If
-                      this is incorrect, please adjust your booking dates:
+                      This booking will run from <strong>{startDate}</strong> to{" "}
+                      <strong>{endDate}</strong>. If this is incorrect, please
+                      adjust your booking dates:
                     </DialogContentText>
                   )}
                   {(!startDate || !endDate) && (
@@ -194,16 +210,22 @@ export default function Rental(props) {
                     defaultValue={endDate}
                     style={{ maxWidth: "40%" }}
                   />
+                  <TextareaAutosize
+                    aria-label="empty textarea"
+                    placeholder="Additional Information"
+                    style={{ width: 400, margin: "20px 0" }}
+                    minRows={6}
+                  />
                   <DialogContentText
                     style={{
                       display: "flex",
                       alignSelf: "flex-end",
                       fontWeight: "bold",
                       fontSize: "1.2em",
-                      color: "green",
+                      color: "black",
                     }}
                   >
-                    Price: {daysRented()}
+                    <u>Price: {daysRented()}</u>
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -223,9 +245,6 @@ export default function Rental(props) {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </div>
-            <div className="total-price">
-              {startDate && endDate && <p>Total Price = {daysRented()}</p>}
             </div>
 
             {/* <p className="price">$90.22</p> */}

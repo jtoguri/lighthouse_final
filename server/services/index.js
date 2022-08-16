@@ -43,7 +43,7 @@ const getListing = async (id) => {
       images.vehicle_id WHERE listings.id = $1;"*/
 
       .query(
-        "select vehicles.*, users.first_name from vehicles join listings on vehicles.id = listings.vehicle_id join users on users.id = listings.owner_id where listings.id = $1;",
+        "select vehicles.*, users.first_name, users.email from vehicles join listings on vehicles.id = listings.vehicle_id join users on users.id = listings.owner_id where listings.id = $1;",
         [id]
       )
       .then((res) => {
@@ -66,26 +66,30 @@ const revokeRefreshTokensForUser = (userId) => {
 };
 
 const getNearbyListings = (coordinates) => {
-  const searchLocation = `POINT(${Number(coordinates.lat)} ${Number(coordinates.lon)})`
+  const searchLocation = `POINT(${Number(coordinates.lat)} ${Number(
+    coordinates.lon
+  )})`;
 
-  return db
-    .query(
-      `select distinct on (listings.id, ST_Distance(ST_GeographyFromText($1), listings.location)) listings.id, vehicles.*,
+  return (
+    db
+      .query(
+        `select distinct on (listings.id, ST_Distance(ST_GeographyFromText($1), listings.location)) listings.id, vehicles.*,
       images.photo, listings.owner_id, listings.vehicle_id,
       ST_Distance(ST_GeographyFromText($1), listings.location),
       ST_AsText(listings.location) as location from listings join
       vehicles on vehicles.id = listings.vehicle_id left join images on
       listings.id = images.listing_id order by
       ST_Distance(ST_GeographyFromText($1), listings.location) limit 100`,
-      [searchLocation]
-    )
+        [searchLocation]
+      )
 
-    /*return db
+      /*return db
       .query(
         `select ST_Distance(ST_GeographyFromText($1), listings.location)
         from listings limit 1;`, [searchLocation]
       )*/
-    .then((res) => res.rows);
+      .then((res) => res.rows)
+  );
 };
 
 const getImages = async (id) => {
@@ -98,21 +102,37 @@ const getImages = async (id) => {
 
 const getHomePageListings = () => {
   return db
-    .query(`select distinct on (listings.id) *, images.photo,
+    .query(
+      `select distinct on (listings.id) *, images.photo,
     users.first_name from
     listings left join images on listings.id = images.listing_id join
     users on listings.owner_id = users.id order
-    by listings.id limit 10;`)
-    .then(res => res.rows);
-}
+    by listings.id limit 10;`
+    )
+    .then((res) => res.rows);
+};
 
-const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
+const createBooking = async ({
+  owner_id,
+  renter_id,
+  vehicle_id,
+  start_date,
+  end_date,
+  total_price,
+}) => {
   const queryString = `INSERT INTO rentals
-      (owner_id, renter_id, vehicle_id) VALUES
-        ($1, $2, $3)
+      (owner_id, renter_id, vehicle_id, start_date, end_date, total_price) VALUES
+        ($1, $2, $3, $4, $5, $6)
       RETURNING *;`;
 
-  const queryParams = [owner_id, renter_id, vehicle_id];
+  const queryParams = [
+    owner_id,
+    renter_id,
+    vehicle_id,
+    start_date,
+    end_date,
+    total_price,
+  ];
 
   return db.query(queryString, queryParams).then((res) => {
     console.log(res);
@@ -131,5 +151,5 @@ module.exports = {
   getNearbyListings,
   getImages,
   createBooking,
-  getHomePageListings
+  getHomePageListings,
 };
