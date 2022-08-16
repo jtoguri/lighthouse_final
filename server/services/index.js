@@ -135,7 +135,7 @@ const getBooking = async (id) => {
       images.vehicle_id WHERE listings.id = $1;"*/
 
       .query(
-        "select rentals.*, users.first_name, users.last_name, vehicles.make, vehicles.model, vehicles.year from rentals JOIN users ON rentals.owner_id = users.id JOIN vehicles ON rentals.vehicle_id = vehicles.id where rentals.renter_id = $1 order by rentals.id asc;",
+        "select rentals.*, users.first_name, users.last_name, vehicles.make, vehicles.model, vehicles.year from rentals JOIN users ON rentals.owner_id = users.id JOIN vehicles ON rentals.vehicle_id = vehicles.id where rentals.renter_id = $1 order by rentals.id desc;",
         [id]
       )
       .then((res) => {

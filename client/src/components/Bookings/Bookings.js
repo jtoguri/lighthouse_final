@@ -13,9 +13,12 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate, useHistory } from "react-router-dom";
 
 export default function Bookings() {
   const [booking, setBooking] = useState();
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -70,7 +73,7 @@ export default function Bookings() {
             color="secondary"
             onClick={() =>
               axios.delete(`/api/bookings/${bookings.id}`).then((res) => {
-                console.log(res);
+                navigate(-1);
               })
             }
           >
