@@ -15,32 +15,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function Bookings() {
-  const fakeBookings = [
-    {
-      owner_id: 1,
-      renter_id: "Jane Grusom",
-      vehicle_id: 1,
-      start_date: "August 1/2022",
-      end_date: "September 20/2022",
-    },
-    {
-      owner_id: 2,
-      renter_id: "Little Nick",
-      vehicle_id: 2,
-      start_date: "August 1/2022",
-      end_date: "September 20/2022",
-    },
-    {
-      owner_id: 3,
-      renter_id: "Another guy",
-      vehicle_id: 3,
-      start_date: "August 1/2022",
-      end_date: "September 20/2022",
-    },
-  ];
   const [booking, setBooking] = useState();
 
   const { id } = useParams();
+
+  console.log("id:", id);
 
   useEffect(() => {
     axios
@@ -85,7 +64,16 @@ export default function Bookings() {
           </Typography>
         </CardContent>
         <CardActions style={{ alignSelf: "flex-end", margin: "20px" }}>
-          <Button variant="outlined" size="small" color="secondary">
+          <Button
+            variant="outlined"
+            size="small"
+            color="secondary"
+            onClick={() =>
+              axios.delete(`/api/bookings/${bookings.id}`).then((res) => {
+                console.log(res);
+              })
+            }
+          >
             cancel
           </Button>
           <Button variant="contained" size="small" color="primary">

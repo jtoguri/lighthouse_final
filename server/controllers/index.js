@@ -58,6 +58,8 @@ const createBooking = require("./createBooking");
 
 const getBooking = require("./getBooking");
 
+const deleteBooking = require("./deleteBooking");
+
 const clientHomePageListings = async (_req, res) => {
   const listings = await queries.getHomePageListings();
 
@@ -76,4 +78,5 @@ module.exports = {
   createBooking,
   getBooking,
   clientHomePageListings,
+  deleteBooking,
 };
