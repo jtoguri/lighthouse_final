@@ -181,6 +181,6 @@ module.exports = {
   getImages,
   createBooking,
   getBooking,
-  getHomePageListings,,
+  getHomePageListings,
   deleteBooking,
 };
