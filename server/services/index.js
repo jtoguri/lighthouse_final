@@ -43,7 +43,7 @@ const getListing = async (id) => {
       images.vehicle_id WHERE listings.id = $1;"*/
 
       .query(
-        "select vehicles.*, users.first_name from vehicles join listings on vehicles.id = listings.vehicle_id join users on users.id = listings.owner_id where listings.id = $1;",
+        "select vehicles.*, users.first_name, users.email from vehicles join listings on vehicles.id = listings.vehicle_id join users on users.id = listings.owner_id where listings.id = $1;",
         [id]
       )
       .then((res) => {
@@ -112,13 +112,27 @@ const getHomePageListings = () => {
     .then((res) => res.rows);
 };
 
-const createBooking = async ({ owner_id, renter_id, vehicle_id }) => {
+const createBooking = async ({
+  owner_id,
+  renter_id,
+  vehicle_id,
+  start_date,
+  end_date,
+  total_price,
+}) => {
   const queryString = `INSERT INTO rentals
-      (owner_id, renter_id, vehicle_id) VALUES
-        ($1, $2, $3)
+      (owner_id, renter_id, vehicle_id, start_date, end_date, total_price) VALUES
+        ($1, $2, $3, $4, $5, $6)
       RETURNING *;`;
 
-  const queryParams = [owner_id, renter_id, vehicle_id];
+  const queryParams = [
+    owner_id,
+    renter_id,
+    vehicle_id,
+    start_date,
+    end_date,
+    total_price,
+  ];
 
   return db.query(queryString, queryParams).then((res) => {
     console.log(res);
@@ -167,6 +181,6 @@ module.exports = {
   getImages,
   createBooking,
   getBooking,
-  getHomePageListings,
+  getHomePageListings,,
   deleteBooking,
 };
