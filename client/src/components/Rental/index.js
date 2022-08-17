@@ -26,9 +26,6 @@ export default function Rental(props) {
   const [images, setImages] = useState();
   const [open, setOpen] = useState(false);
 
-  const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in ligula id ligula ornare scelerisque. Etiam at commodo nisl, sed interdum felis. Vestibulum non sagittis sem. Aenean ac vestibulum ex. Sed sapien arcu, elementum vel auctor sed, facilisis eu arcu. Sed fringilla nibh id egestas vestibulum. Sed varius ex lorem. Phasellus hendrerit volutpat neque, sit amet euismod ligula fermentum eget. Vestibulum a nulla sed justo interdum porta non at nisi. Etiam aliquam semper sapien vitae congue. Sed eu mi tincidunt, varius lacus ut, molestie lectus. Suspendisse ac aliquet sem. Sed risus metus, dignissim blandit ultricies sed, gravida eu velit. Aenean semper, mauris id hendrerit vehicula, lectus lectus efficitur urna, et rutrum libero leo hendrerit quam. Duis sed sapien cursus, pulvinar nisl non, iaculis massa. Cras vitae elit eros. Curabitur consectetur arcu blandit commodo feugiat.Pellentesque a diam augue.Nulla consequat orci vitae cursus dapibus.Proin nec porttitor enim.Fusce at diam dolor.Aliquam non lorem sem.Donec rutrum risus ipsum, quis rutrum sapien ultricies mollis.Phasellus eu vestibulum orci, vitae luctus ante.";
-
   const navigate = useNavigate();
 
   const price = 90.22;
@@ -115,7 +112,7 @@ export default function Rental(props) {
             </div>
             <div className="description">
               <h5>DESCRIPTION</h5>
-              <p>{description}</p>
+              <p>{vehicle.description}</p>
             </div>
             <div className="description">
               <h5>REVIEWS</h5>
