@@ -85,9 +85,10 @@
     }
 
     .carousel-container { 
-      height: 15rem;
+      height: fit-content;
       margin-top: 5rem;
       width: 70%; 
+      padding-bottom: 1rem;
 
       div {
         padding: 0 1rem;
@@ -96,6 +97,14 @@
       img {
         width: 100%;
         height: auto;
+      }
+
+      .react-multiple-carousel__arrow {
+        background: rgba(186, 104, 200, 0.5);
+      }
+
+      .react-multiple-carousel__arrow:hover {
+        background: rgba(186, 104, 200, 0.9);
       }
     }
   }

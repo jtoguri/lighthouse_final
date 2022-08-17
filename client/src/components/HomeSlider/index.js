@@ -11,7 +11,7 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 4
+    items: 3
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -31,14 +31,15 @@ return (
     responsive={responsive}
     infinite={true}
     itemClass="carousel-item-padding-40-px"
-    centerMode={true}
+    centerMode={false}
+    partialVisible={false}
     containerClass="carousel-container"
   >
     {listings.map(listing => {
       return (
         <div>
           <img src={listing.photo} />
-          Hosted by: {listing.first_name}
+          <p>Hosted by: {listing.first_name}</p>
         </div>
       );
     })}
