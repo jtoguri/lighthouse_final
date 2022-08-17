@@ -87,7 +87,7 @@ export default function Login() {
           color="primary"
           size="large"
           fullWidth
-          onSubmit={handleLogin}
+          onClick={handleLogin}
         >
           Sign In
         </Button>

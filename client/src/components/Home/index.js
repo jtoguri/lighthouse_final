@@ -1,32 +1,30 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import axios from 'axios';
+import axios from "axios";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import HomeSlider from '../HomeSlider';
+import HomeSlider from "../HomeSlider";
 
 export default function Home() {
-  
   const [searchLocation, setSearchLocation] = useState("");
-  const [listings, setListings] =useState([]);
+  const [listings, setListings] = useState([]);
   const [legendDisplay, setLegendDisplay] = useState("");
 
   let navigate = useNavigate();
 
-  const getHomePageListings = async() => {
+  const getHomePageListings = async () => {
     const listings = await axios.get("api/listings");
     setListings(listings.data);
-  }
+  };
 
   useEffect(() => {
     getHomePageListings();
-  }, [])
-  
-  const handleSearch = async (e) => {
+  }, []);
 
-    e.preventDefault(); 
+  const handleSearch = async (e) => {
+    e.preventDefault();
 
     let res;
 
@@ -38,36 +36,38 @@ export default function Home() {
 
     const locationData = res.data;
 
-    console.log(locationData)
+    console.log(locationData);
 
     navigate(`/search?lat=${locationData.lat}&lon=${locationData.lon}`);
-  }
+  };
 
   return (
     <div id="Home">
-        <div id="backgroundContainer">
-        </div>
-        <form onSubmit={handleSearch} >
-          <fieldset>
-            <legend className={legendDisplay}>Search by location</legend>
-            <input onFocus={() => setLegendDisplay("visible")}
-            onBlur={() => setLegendDisplay("")} type="search" placeholder="Search by location" onChange={e =>
-            setSearchLocation(e.target.value)} />
-          </fieldset> 
-          <button type="submit">
-            Search 
-          </button>
-        </form>
+      <div id="backgroundContainer"></div>
+      <form onSubmit={handleSearch}>
+        <fieldset>
+          <legend className={legendDisplay}>Search by location</legend>
+          <input
+            onFocus={() => setLegendDisplay("visible")}
+            onBlur={() => setLegendDisplay("")}
+            type="search"
+            placeholder="Search by location"
+            onChange={(e) => setSearchLocation(e.target.value)}
+          />
+        </fieldset>
+        <button type="submit">Search</button>
+      </form>
 
-        <div className="home-message">
-          <p>With over 3000 users worldwide, come find the right trailer
-          for your needs</p>
-        </div>
+      <div className="home-message">
+        <p>
+          With over 3000 users worldwide, come find the right trailer for your
+          needs
+        </p>
+      </div>
 
-        <HomeSlider listings={listings}/>
+      <HomeSlider listings={listings} />
 
-
-        {/*<div>
+      {/*<div>
           <h2>Section for different types of rentals</h2>
           <ul>
             <li>type 1</li>
@@ -79,4 +79,4 @@ export default function Home() {
         </div>*/}
     </div>
   );
-};
+}

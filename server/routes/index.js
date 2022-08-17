@@ -22,4 +22,8 @@ router.get("/images/:id", controllers.getImages);
 
 router.post("/booking", controllers.createBooking);
 
+router.get("/bookings/:id", controllers.getBooking);
+
+router.delete("/bookings/:id", controllers.deleteBooking);
+
 module.exports = router;
