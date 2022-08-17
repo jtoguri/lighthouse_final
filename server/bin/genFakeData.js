@@ -9,6 +9,7 @@ const { faker } = require( '@faker-js/faker/locale/en_CA');
 const fs = require('fs/promises');
 
 const addresses = require('../fake_data/fakeAddresses.json');
+const images = require('../fake_data/images.json');
 
 const checkForApost = (word) => {
   return word.split("'").join("''");
@@ -20,11 +21,16 @@ let userString =
   `;
 let vehicleString = 
   `INSERT INTO vehicles
-    (owner_id, vin, make, model) VALUES
+    (owner_id, vin, make, model, description) VALUES
   `;
 let listingString = 
   `INSERT INTO listings
     (owner_id, vehicle_id, location) VALUES
+  `;
+
+let imageString = 
+  `INSERT INTO images
+    (listing_id, photo) VALUES
   `;
 
 const seen = {};
@@ -77,14 +83,42 @@ while (count < maxCount) {
 
   const model = faker.vehicle.model();
 
-  vehicleString += ` (${owner_id}, '${vin}', '${make}', '${model}')`;
+  const description = `Lorem Ipsum is simply dummy text of the printing
+  and typesetting industry. Lorem Ipsum has been the industry
+  standard dummy text ever since the 1500s, when an unknown printer
+  took a galley of type and scrambled it to make a type specimen
+  book. It has survived not only five centuries, but also the leap
+  into electronic typesetting, remaining essentially unchanged. It was
+  popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+  publishing software like Aldus PageMaker including versions of
+  Lorem Ipsum.`
+
+  vehicleString += ` (${owner_id}, '${vin}', '${make}', '${model}',
+  '${description}')`;
   vehicleString += (count === maxCount - 1) ? ';' : ',';
 
-  const vehicleId = count + 1;
+  let vehicleId, listingId, imageIndex; 
+  vehicleId = listingId = imageIndex = count + 1;
 
   listingString += ` (${owner_id}, ${vehicleId},
   'POINT(${Number(location[0])} ${Number(location[1])})')` 
   listingString += (count === maxCount - 1) ? ';' : ',';
+
+  if (imageIndex >= images.length) {
+    imageIndex = imageIndex % images.length; 
+  }
+
+  for (let i = 0; i < images[imageIndex]["urls"].length; i++) {
+    const url = images[imageIndex].urls[i];
+
+    imageString += ` (${listingId}, '${url}')`;
+    
+    if (i !== images[imageIndex]["urls"].length - 1) {
+      imageString += ',';
+    }
+  }
+
+  imageString += (count === maxCount - 1) ? ';' : ',';
 
   count ++;
 }
@@ -94,6 +128,7 @@ const writeQueries = async() => {
   await fs.writeFile('../db/seeds/02_fake_hosts.sql', userString);
   await fs.writeFile('../db/seeds/04_fake_vehicles.sql', vehicleString);
   await fs.writeFile('../db/seeds/05_fake_listings.sql', listingString);
+  await fs.writeFile('../db/seeds/06_images.sql', imageString);
   return;
 }
 
