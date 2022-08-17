@@ -2,24 +2,34 @@
   width: 100%;
   z-index: 10;
 
+
   nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 5rem;
     background-color: white;
+    align-items: center;
 
     ul {
       list-style-type: none;
       display: flex;
       column-gap: 1rem;
       padding: 0;
+
     }
 
     .navbar-brand, .nav-link {
       text-decoration: none;
       color: #9c27b0;
     }
+
+    svg {
+      height: 100%; 
+      fill: #9c27b0;
+      display: block;
+    }
+
     .navbar-brand:hover, .nav-link:hover {
       background-color: rgba(186,104,200, 0.10);
     }
