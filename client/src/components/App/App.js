@@ -16,6 +16,7 @@ import axios from "axios";
 import { UserContext, TokenContext } from "../UserContext";
 
 import "./App.scss";
+import Bookings from "../Bookings/Bookings";
 
 function App() {
   const storedJwt = sessionStorage.getItem("token");
@@ -55,6 +56,7 @@ function App() {
           <Route path="/listings/:id" element={<Rental />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/bookings/:id" element={<Bookings />} />
         </Routes>
         {location.pathname !== "/search" && <Footer />}
       </TokenContext.Provider>

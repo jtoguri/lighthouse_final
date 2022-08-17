@@ -1,12 +1,13 @@
 // Controller used by route /api/users/login
 
-const { getUserByEmail } = require('../services');
+const { getUserByEmail } = require("../services");
 
-const { 
-  comparePasswords, 
-  generateAccessToken, 
+const {
+  comparePasswords,
+  generateAccessToken,
   generateRefreshToken,
-  sendRefreshToken } = require('../helpers');
+  sendRefreshToken,
+} = require("../helpers");
 
 module.exports = async (req, res) => {
   console.log("logging in");
@@ -19,10 +20,7 @@ module.exports = async (req, res) => {
     return res.json({ error: "Invalid credentials." });
   }
 
-  const verified = await comparePasswords(
-    req.body.password, 
-    user.password
-  );
+  const verified = await comparePasswords(req.body.password, user.password);
 
   if (!verified) {
     return res.json({ error: "Invalid credentials." });
@@ -33,8 +31,9 @@ module.exports = async (req, res) => {
   sendRefreshToken(res, generateRefreshToken(user));
 
   const accessToken = generateAccessToken(user);
-  
+
   const msg = "successful login";
 
   res.json({ result: verified, msg, accessToken });
+  console.log("logged in");
 };

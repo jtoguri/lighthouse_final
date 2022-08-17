@@ -56,11 +56,15 @@ const getImages = require("./getImages");
 
 const createBooking = require("./createBooking");
 
-const clientHomePageListings = async (_req, res) => {
- const listings = await queries.getHomePageListings();
+const getBooking = require("./getBooking");
 
- res.send(listings);
-}
+const deleteBooking = require("./deleteBooking");
+
+const clientHomePageListings = async (_req, res) => {
+  const listings = await queries.getHomePageListings();
+
+  res.send(listings);
+};
 
 module.exports = {
   getApiHome,
@@ -72,5 +76,7 @@ module.exports = {
   clientSearchLocation,
   getImages,
   createBooking,
-  clientHomePageListings
+  getBooking,
+  clientHomePageListings,
+  deleteBooking,
 };

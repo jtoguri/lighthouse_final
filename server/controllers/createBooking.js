@@ -11,5 +11,5 @@ module.exports = async (req, res) => {
   };
   const booking = await createBooking(bookingData);
   console.log("new booking:", booking);
-  return res.redirect("/");
+  return res.redirect("/bookings/1");
 };
