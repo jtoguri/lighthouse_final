@@ -13,20 +13,32 @@ import {
   TextareaAutosize,
 } from "@material-ui/core";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "./Rental.scss";
 
 import Carousel from "../Carousel/Carousel";
 
 export default function Rental(props) {
+  const navigate = useNavigate();
+  let location = useLocation();
+
   const [vehicle, setVehicle] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [images, setImages] = useState();
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
+  const token = props.value.accessToken;
+  console.log(location.state);
+
+  function defaultEndDate() {
+    if (location.state.end_date) {
+      return location.state.end_date;
+    } else {
+      return null;
+    }
+  }
 
   const price = 90.22;
 
@@ -84,9 +96,13 @@ export default function Rental(props) {
       end_date: endDate,
       total_price: daysRented(),
     };
-    console.log("loading");
-    await axios.post("/api/booking", bookingData);
-    navigate("/bookings");
+    if (!token) {
+      navigate("/login", { state: bookingData });
+    } else {
+      console.log("loading");
+      await axios.post("/api/booking", bookingData);
+      navigate("/bookings");
+    }
   };
 
   if (vehicle === undefined) {
@@ -144,7 +160,7 @@ export default function Rental(props) {
                 type="date"
                 variant="outlined"
                 placeholder=""
-                defaultValue={endDate}
+                defaultValue={defaultEndDate}
               />
             </div>
             <hr className="horizontal-line"></hr>

@@ -35,7 +35,7 @@ function App() {
   const getToken = async () => {
     if (location.pathname === "/") {
       const res = await axios.post("/refresh_token");
-      console.log(res.data)
+      console.log(res.data);
       setAccessToken(res.data.accessToken);
       sessionStorage.setItem("token", res.data.accessToken);
     }
@@ -54,7 +54,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
           {/* <Route path="/listing" element={<Rental />} /> */}
-          <Route path="/listings/:id" element={<Rental />} />
+          <Route path="/listings/:id" element={<Rental value={value} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/bookings" element={<Bookings />} />

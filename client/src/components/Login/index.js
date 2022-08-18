@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { TokenContext } from "../UserContext";
 import {
@@ -25,6 +25,9 @@ export default function Login() {
   const { accessToken, setAccessToken } = useContext(TokenContext);
 
   let navigate = useNavigate();
+  let location = useLocation();
+
+  console.log(location);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -43,7 +46,13 @@ export default function Login() {
 
     setAccessToken(res.data.accessToken);
 
-    navigate("/", { replace: true });
+    if (location.state === null) {
+      navigate("/", { replace: true });
+    } else {
+      navigate(`/listings/${location.state.vehicle_id}`, {
+        state: location.state,
+      });
+    }
   };
 
   const paperStyle = {

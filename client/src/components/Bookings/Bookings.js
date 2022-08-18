@@ -45,7 +45,9 @@ export default function Bookings() {
     overflow: "initial",
   };
 
-  if (booking === undefined) {
+  console.log(booking);
+
+  if (booking === undefined || Object.keys(booking).length === 0) {
     return <></>;
   }
 
