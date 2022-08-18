@@ -10,6 +10,8 @@ router.post("/users/login", controllers.userLogin);
 
 router.post("/users/register", controllers.userRegistration);
 
+//router.get("/users/chat", controllers.userChat);
+
 router.get("/listings/:lat&:lon", controllers.searchListings);
 
 router.get("/listings/:id", controllers.getListing);
@@ -22,7 +24,7 @@ router.get("/images/:id", controllers.getImages);
 
 router.post("/booking", controllers.createBooking);
 
-router.get("/bookings/:id", controllers.getBooking);
+router.get("/bookings", controllers.getBooking);
 
 router.delete("/bookings/:id", controllers.deleteBooking);
 

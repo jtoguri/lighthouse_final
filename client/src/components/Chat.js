@@ -1,9 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
+import { TokenContext } from "./UserContext";
+
+import axios from "axios";
 
 import socket from "../socket";
 
 export default function Chat() {
-  const [username, setUsername] = 
+  
+  const ref = useRef(useContext(TokenContext))
+  
+  //const navigate = useNavigate();
+
+  const getChats = async () => {
+    const res = await axios.get("/api/users/chatrooms", {
+      headers: { 'Authorization': `token ${ref.current.accessToken}` }
+    });
+
+    console.log(res);
+  }
+
+  useEffect(() => {
+    getChats();
+  }, [])
+  /*const [username, setUsername] = 
     useState(localStorage.getItem('username') || '');  
 
   const [messageContent, setMessageContent] = useState("");
@@ -109,5 +128,13 @@ export default function Chat() {
           </>
         }
       </div>
+  )*/
+
+  return (
+    <>
+      <div className="chatroom-aside">
+        {/*list of chatrooms here*/}
+      </div>
+    </>
   )
 }

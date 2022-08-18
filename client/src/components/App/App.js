@@ -21,11 +21,9 @@ import Bookings from "../Bookings/Bookings";
 function App() {
   const storedJwt = sessionStorage.getItem("token");
 
-  //const decodedUser = storedJwt ? jwt_decode(storedJwt) : null;
-
   const [user, setUser] = useState(storedJwt || null);
 
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(storedJwt);
 
   const location = useLocation();
 
@@ -35,14 +33,17 @@ function App() {
   );
 
   const getToken = async () => {
-    const res = await axios.post("/refresh_token");
-    setAccessToken(res.data.accessToken);
+    if (location.pathname === "/") {
+      const res = await axios.post("/refresh_token");
+      console.log(res.data);
+      setAccessToken(res.data.accessToken);
+      sessionStorage.setItem("token", res.data.accessToken);
+    }
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     getToken();
-
-  }, []);*/
+  }, []);
 
   return (
     <div className="App">
@@ -53,10 +54,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
           {/* <Route path="/listing" element={<Rental />} /> */}
-          <Route path="/listings/:id" element={<Rental />} />
+          <Route path="/listings/:id" element={<Rental value={value} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResults />} />
-          <Route path="/bookings/:id" element={<Bookings />} />
+          <Route path="/bookings" element={<Bookings />} />
         </Routes>
         {location.pathname !== "/search" && <Footer />}
       </TokenContext.Provider>

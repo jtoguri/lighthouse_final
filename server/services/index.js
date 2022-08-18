@@ -135,7 +135,6 @@ const createBooking = async ({
   ];
 
   return db.query(queryString, queryParams).then((res) => {
-    console.log(res);
     return res.rows[0];
   });
 };
@@ -168,6 +167,7 @@ const deleteBooking = async (id) => {
     return res.rows;
   });
 };
+
 
 module.exports = {
   getUsers,

@@ -10,28 +10,29 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, useHistory } from "react-router-dom";
+import { TokenContext } from "../UserContext";
 
 export default function Bookings() {
   const [booking, setBooking] = useState();
+
+  const ref = useRef(useContext(TokenContext));
 
   const navigate = useNavigate();
 
   const { id } = useParams();
 
-  console.log("id:", id);
-
   useEffect(() => {
     axios
-      .get(`/api/bookings/${id}`)
+      .get(`/api/bookings`, {
+        headers: { Authorization: `token ${ref.current.accessToken}` },
+      })
       .then((res) => setBooking(res.data))
       .catch((error) => console.log(error));
-  }, [id]);
-
-  console.log(booking);
+  }, []);
 
   const cardStyle = {
     display: "flex",
@@ -44,12 +45,13 @@ export default function Bookings() {
     overflow: "initial",
   };
 
-  if (booking === undefined) {
+  console.log(booking);
+
+  if (booking === undefined || Object.keys(booking).length === 0) {
     return <></>;
   }
 
   const allBookings = booking.map((bookings) => {
-    console.log(bookings);
     return (
       <Card style={cardStyle}>
         <CardContent>
@@ -88,7 +90,12 @@ export default function Bookings() {
           >
             cancel
           </Button>
-          <Button variant="contained" size="small" color="primary">
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={() => navigate("/chat")}
+          >
             contact
           </Button>
         </CardActions>
@@ -101,7 +108,7 @@ export default function Bookings() {
       <Typography variant="h5" align="center" style={{ margin: "20px" }}>
         MY BOOKINGS
       </Typography>
-      <div>{allBookings}</div>
+      {booking && <div>{allBookings}</div>}
     </Box>
   );
 }

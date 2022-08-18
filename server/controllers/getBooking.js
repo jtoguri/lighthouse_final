@@ -1,8 +1,8 @@
 const queries = require("../services");
 
 module.exports = async (req, res) => {
-  const ownerId = req.params.id;
-  console.log(ownerId);
-  const booking = await queries.getBooking(ownerId);
+  const userId = req.userID;   
+  console.log(userId)
+  const booking = await queries.getBooking(userId);
   res.json(booking);
 };

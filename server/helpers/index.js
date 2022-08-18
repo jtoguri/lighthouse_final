@@ -46,6 +46,7 @@ const sendRefreshToken = (res, token) => {
 const verifyAccessToken = (token) => {
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return decoded;
   } catch(err) {
     // err
   }

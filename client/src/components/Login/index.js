@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { TokenContext } from "../UserContext";
 import {
@@ -19,8 +20,14 @@ import "./Login.scss";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const { accessToken, setAccessToken } = useContext(TokenContext);
+
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  console.log(location);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,7 +38,21 @@ export default function Login() {
 
     console.log(res.data);
 
+    if (res.data.error) {
+      setPassword("");
+      setLoginError(res.data.error);
+      return;
+    }
+
     setAccessToken(res.data.accessToken);
+
+    if (location.state === null) {
+      navigate("/", { replace: true });
+    } else {
+      navigate(`/listings/${location.state.vehicle_id}`, {
+        state: location.state,
+      });
+    }
   };
 
   const paperStyle = {
@@ -49,13 +70,14 @@ export default function Login() {
             <LockOutlined />
           </Avatar>
           <h2>Sign In</h2>
+          {loginError && <p className="login-error">{loginError}</p>}
         </Grid>
         <TextField
-          label="Username"
-          placeholder="Enter username"
+          label="Email"
+          placeholder="Enter email"
           fullWidth
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => (setEmail(e.target.value), setLoginError(""))}
         ></TextField>
         <TextField
           label="Password"
@@ -63,7 +85,7 @@ export default function Login() {
           type="password"
           fullWidth
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => (setPassword(e.target.value), setLoginError(""))}
           style={{ margin: "10px 0 10px 0" }}
         ></TextField>
         <br></br>

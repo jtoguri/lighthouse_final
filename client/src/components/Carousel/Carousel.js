@@ -6,7 +6,6 @@ import "./Carousel.scss";
 
 export default function Carousel(props) {
   const images = props.photo;
-  console.log("images", images);
 
   const [currImg, setCurrImg] = useState(0);
 
