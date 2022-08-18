@@ -168,6 +168,7 @@ const deleteBooking = async (id) => {
   });
 };
 
+
 module.exports = {
   getUsers,
   getUserByEmail,

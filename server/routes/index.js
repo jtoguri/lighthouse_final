@@ -10,6 +10,8 @@ router.post("/users/login", controllers.userLogin);
 
 router.post("/users/register", controllers.userRegistration);
 
+//router.get("/users/chat", controllers.userChat);
+
 router.get("/listings/:lat&:lon", controllers.searchListings);
 
 router.get("/listings/:id", controllers.getListing);
