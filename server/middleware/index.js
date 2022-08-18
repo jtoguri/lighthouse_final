@@ -7,7 +7,6 @@ const isAuth = (req, res, next) => {
     "/api/users/register",
     "/refresh_token",
     "/api/booking",
-    // "/api/images",
   ];
 
   if (nonSecurePaths.includes(req.path)) return next();
@@ -18,7 +17,6 @@ const isAuth = (req, res, next) => {
     req.path.split("/")[2] === "images" ||
     req.path.split("/")[2] === "bookings"
   ) {
-    //nonSecurePaths.push(req.path);
     return next();
   }
 
