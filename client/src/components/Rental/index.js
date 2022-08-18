@@ -24,21 +24,21 @@ export default function Rental(props) {
   let location = useLocation();
 
   const [vehicle, setVehicle] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  // if (location.state?.start_date && location.state?.end_date) {
+
+  // }
+  const [startDate, setStartDate] = useState(
+    location.state?.start_date || null
+  );
+  const [endDate, setEndDate] = useState(location.state?.end_date || null);
   const [images, setImages] = useState();
   const [open, setOpen] = useState(false);
 
   const token = props.value.accessToken;
-  console.log(location.state);
 
-  function defaultEndDate() {
-    if (location.state.end_date) {
-      return location.state.end_date;
-    } else {
-      return null;
-    }
-  }
+  // function defaultEndDate() {
+  //   if (location.state.end_date)
+  // }
 
   const price = 90.22;
 
@@ -160,7 +160,7 @@ export default function Rental(props) {
                 type="date"
                 variant="outlined"
                 placeholder=""
-                defaultValue={defaultEndDate}
+                defaultValue={endDate}
               />
             </div>
             <hr className="horizontal-line"></hr>
