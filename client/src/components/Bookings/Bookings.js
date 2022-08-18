@@ -22,8 +22,6 @@ export default function Bookings() {
 
   const { id } = useParams();
 
-  console.log("id:", id);
-
   useEffect(() => {
     axios
       .get(`/api/bookings/${id}`)
@@ -88,7 +86,12 @@ export default function Bookings() {
           >
             cancel
           </Button>
-          <Button variant="contained" size="small" color="primary">
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={() => navigate("/chat")}
+          >
             contact
           </Button>
         </CardActions>

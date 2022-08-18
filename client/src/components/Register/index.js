@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -18,6 +19,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleRegistration = async (e) => {
     e.preventDefault();
     console.log("form submitted");
@@ -34,6 +37,8 @@ export default function Register() {
     const res = await axios.post("/api/users/register", user);
 
     console.log(res.data);
+
+    navigate("/");
   };
 
   const paperStyle = {

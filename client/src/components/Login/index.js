@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TokenContext } from "../UserContext";
 import {
@@ -22,6 +23,8 @@ export default function Login() {
 
   const { accessToken, setAccessToken } = useContext(TokenContext);
 
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -32,6 +35,7 @@ export default function Login() {
     console.log(res.data);
 
     setAccessToken(res.data.accessToken);
+    navigate("/");
   };
 
   const paperStyle = {
