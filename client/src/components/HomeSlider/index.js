@@ -28,7 +28,7 @@ return (
     swipeable={false}
     draggable={false}
     showDots={false}
-    responsive={responsive}
+    
     infinite={true}
     itemClass="carousel-item-padding-40-px"
     centerMode={false}

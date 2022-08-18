@@ -6,6 +6,7 @@ import axios from "axios";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import HomeSlider from "../HomeSlider";
+import Cityslider from "../Cityslider/Cityslider";
 
 export default function Home() {
   const [searchLocation, setSearchLocation] = useState("");
@@ -66,6 +67,7 @@ export default function Home() {
       </div>
 
       <HomeSlider listings={listings} />
+      <Cityslider/>
 
       {/*<div>
           <h2>Section for different types of rentals</h2>
