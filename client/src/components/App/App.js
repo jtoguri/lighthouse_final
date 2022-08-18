@@ -36,13 +36,13 @@ function App() {
 
   const getToken = async () => {
     const res = await axios.post("/refresh_token");
+    console.log(res.data)
     setAccessToken(res.data.accessToken);
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     getToken();
-
-  }, []);*/
+  }, []);
 
   return (
     <div className="App">

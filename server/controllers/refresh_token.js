@@ -25,9 +25,9 @@ module.exports = async (req, res) => {
   
   const user = await getUserById(payload.userID);
 
-  if (!user || user.token_version !== payload.tokenVersion) {
+  /*if (!user || user.token_version !== payload.tokenVersion) {
     return res.json({ ok: false, accessToken: '' });
-  }
+  }*/
   
   // add logic to generate new refresh token same as login
 
