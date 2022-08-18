@@ -163,10 +163,22 @@ const deleteBooking = async (id) => {
   const queryParams = [id];
 
   return db.query(queryString, queryParams).then((res) => {
-    console.log(res);
     return res.rows;
   });
 };
+
+const getChatRooms = (userId) => {
+  const queryString = `select users.first_name as sender_name, *from chatrooms join chatmessages on
+  chatrooms.id = chatmessages.chatroom_id join users on
+  chatmessages.sender_id = users.id where renter_id = $1 or
+  host_id = $1;` 
+
+  const queryParams = [userId];
+
+  return db.query(queryString, queryParams).then((res) => {
+    return res.rows; 
+  });
+}
 
 
 module.exports = {
@@ -183,4 +195,5 @@ module.exports = {
   getBooking,
   getHomePageListings,
   deleteBooking,
+  getChatRooms
 };

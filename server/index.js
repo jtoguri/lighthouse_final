@@ -24,10 +24,10 @@ const io = new Server(httpServer, {
   }
 });
 
-app.use(isAuth);
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(isAuth);
 
 app.use('/api', apiRouter);
 

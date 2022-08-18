@@ -66,6 +66,13 @@ const clientHomePageListings = async (_req, res) => {
   res.send(listings);
 };
 
+const userChat = async (req, res) => {
+  const userId = req.userID;
+  
+  const chatrooms = await queries.getChatRooms(userId);
+  console.log(chatrooms)
+}
+
 module.exports = {
   getApiHome,
   userLogin,
@@ -79,4 +86,5 @@ module.exports = {
   getBooking,
   clientHomePageListings,
   deleteBooking,
+  userChat
 };
