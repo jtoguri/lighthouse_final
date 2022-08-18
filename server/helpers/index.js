@@ -48,7 +48,9 @@ const verifyAccessToken = (token) => {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     return decoded;
   } catch(err) {
-    // err
+    if (err.name === "TokenExpiredError") {
+     return { ...err }; 
+    }
   }
 }
 

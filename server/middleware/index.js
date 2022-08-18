@@ -1,4 +1,4 @@
-const { verifyAccessToken } = require("../helpers");
+const { verifyAccessToken, verifyRefreshToken } = require("../helpers");
 
 const isAuth = (req, res, next) => {
   const nonSecurePaths = [
@@ -29,8 +29,12 @@ const isAuth = (req, res, next) => {
   try {
     const token = authorization.split(" ")[1];
 
-    const payload = verifyAccessToken(token);
-
+    let payload = verifyAccessToken(token);
+    
+    if (payload.name === 'TokenExpiredError' ) {
+      const refreshToken = req.cookies.jid;
+      payload = verifyRefreshToken(refreshToken)
+    }
 
     req.userID = payload.userID;
 
