@@ -86,7 +86,7 @@ export default function Rental(props) {
     };
     console.log("loading");
     await axios.post("/api/booking", bookingData);
-    navigate("/bookings/1");
+    navigate("/bookings");
   };
 
   if (vehicle === undefined) {
