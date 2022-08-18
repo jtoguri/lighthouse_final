@@ -86,7 +86,7 @@
 
     .carousel-container { 
       height: fit-content;
-      margin-top: 5rem;
+      margin-top: 2rem;
       width: 70%; 
 
       div {
@@ -105,6 +105,12 @@
       .react-multiple-carousel__arrow:hover {
         background: rgba(186, 104, 200, 0.9);
       }
+    }
+    
+    .carousel-title {
+      align-self: flex-start;
+      margin-top: 5rem;
+      margin-left: 20rem;
     }
   }
 }

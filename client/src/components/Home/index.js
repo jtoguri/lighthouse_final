@@ -6,6 +6,7 @@ import axios from "axios";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import HomeSlider from "../HomeSlider";
+import CitySlider from "../CitySlider";
 
 export default function Home() {
   const [searchLocation, setSearchLocation] = useState("");
@@ -64,7 +65,11 @@ export default function Home() {
           needs
         </p>
       </div>
+      
+      <h3 className="carousel-title">Browse by destination</h3>
+      <CitySlider />
 
+      <h3 className="carousel-title">Browse current listings</h3>
       <HomeSlider listings={listings} />
 
       {/*<div>
